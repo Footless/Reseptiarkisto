@@ -11,4 +11,8 @@
       // Testaa koodiasi täällä
       echo 'Hello World!';
     }
+
+    public static function reseptit(){
+      echo 'Reseptit!';
+    }
   }
