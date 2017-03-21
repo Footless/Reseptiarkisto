@@ -7,12 +7,11 @@
    	  View::make('home.html');
     }
 
-    public static function sandbox(){
-      // Testaa koodiasi täällä
-      echo 'Hello World!';
+    public static function reseptit(){
+      View::make('reseptit.html');
     }
 
-    public static function reseptit(){
-      echo 'Reseptit!';
+    public static function rekisteroidy(){
+      View::make('rekisteroidy.html');
     }
   }
