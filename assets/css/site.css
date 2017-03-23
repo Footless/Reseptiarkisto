@@ -23,6 +23,12 @@ p {
   margin: 5px;
 }
 
+.recipe_info{
+  top: 2rem;
+  right: 3%;
+  position: absolute;
+}
+
 h3 {
   width: 100%;
   border-bottom: 1px solid #e6e6e6;
@@ -63,4 +69,28 @@ h3 {
   left: 0;
   bottom: 0;
   position: absolute;
+}
+
+/* reseptin nappuloiden lista */
+
+ul.recipe_bar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 15px 0 15px;
+  margin: 10px 15px 10px 10px;
+  overflow: hidden;
+  background-color: #d8e7ff;
+}
+
+ul.recipe_bar > li {
+  float: right;
+}
+
+ul.recipe_bar > li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 2px 5px 2px 5px;
+  margin: 0 50px 0 50px;
+  text-decoration: none;
 }

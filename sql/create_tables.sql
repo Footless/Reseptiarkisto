@@ -21,7 +21,7 @@ CREATE TABLE Suosikit(
 );
 
 CREATE TABLE Raaka_aineet(
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY NOT NULL,
   nimi varchar(100)
 );
 

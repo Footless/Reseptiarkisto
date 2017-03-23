@@ -14,4 +14,8 @@
     public static function rekisteroidy(){
       View::make('rekisteroidy.html');
     }
+
+    public static function resepti(){
+      View::make('resepti.html');
+    }
   }

@@ -11,3 +11,7 @@
   $routes->get('/rekisteroidy/', function() {
     HelloWorldController::rekisteroidy();
   });
+
+  $routes->get('/resepti/', function() {
+    HelloWorldController::resepti();
+  });
