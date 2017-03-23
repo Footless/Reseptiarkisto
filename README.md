@@ -12,6 +12,7 @@ Linkit yksittäisiin sivuihin:
 * [Reseptit](http://vankari.users.cs.helsinki.fi/reseptiarkisto/reseptit/)
 * [Yksittäinen resepti](http://vankari.users.cs.helsinki.fi/reseptiarkisto/resepti)
 * [Lisää resepti](http://vankari.users.cs.helsinki.fi/reseptiarkisto/lisaa-resepti)
+
 Reseptin muokkaaminen tulee tapahtumaan reseptin omassa näkymässä, oikeus siihen on reseptin tekijällä ja ylläpidolla.
 
 ## Työn aihe
