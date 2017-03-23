@@ -18,4 +18,8 @@
     public static function resepti(){
       View::make('resepti.html');
     }
+
+    public static function lisaaResepti(){
+      View::make('lisaa_resepti.html');
+    }
   }

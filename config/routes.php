@@ -15,3 +15,7 @@
   $routes->get('/resepti/', function() {
     HelloWorldController::resepti();
   });
+
+  $routes->get('/lisaa-resepti/', function() {
+    HelloWorldController::lisaaResepti();
+  });

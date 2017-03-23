@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Lisää resepti</h3>
+  <div class="container">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="col-sm-2">
+          <label class="control-label"><input type="checkbox" value=""> Oma raaka-aine</label>
+        </div>
+        <div class="col-sm-6">
+          <input class="form-control" id="raaka_aine" type="text" placeholder="Raaka-aine">
+        </div>
+        <div class="col-sm-2">
+          <input class="form-control" id="maara" type="text" placeholder="Määrä">
+        </div>
+        <div class="col-sm-2">
+          <input class="form-control" id="yksikko" type="text" placeholder="Yksikkö">
+        </div>
+      </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <button type="button" class="btn btn-default">Lisää raaka-aine</button>
+        <hr />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="kuvaus">Kuvaus</label>
+          <textarea class="form-control" rows="10" id="kuvaus"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="ohjeet">Ohjeet:</label>
+          <textarea class="form-control" rows="10" id="ohjeet"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Valmistusaika: </label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="aika" placeholder="Kauanko valmistaminen kestää?">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Annoksia: </label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="annoksia" placeholder="Montako annosta reseptistä tulee?">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="valitse_kategoria">Valitse kategoria</label>
+      <select class="form-control" id="valitse_kategoria">
+        <<option value="1">Alkuruoka</option>
+        <<option value="2">Pääruoka</option>
+        <<option value="3">Jälkiruoka tai leivonnainen</option>
+      </select>
+    </div>
+    <button type="button" class="btn btn-primary">Lisää resepti</button>
+  </form>
+  </div>
+
+{% endblock %}
