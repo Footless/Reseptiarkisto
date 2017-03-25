@@ -19,12 +19,12 @@ CREATE TABLE Suosikit(
   kayttaja_id INTEGER REFERENCES Kayttaja(id),
   resepti_id INTEGER REFERENCES Resepti(id)
 );
-/*
+
 CREATE TABLE Raaka_aineet(
   id INTEGER PRIMARY KEY NOT NULL,
   nimi varchar(100)
 );
-*/
+
 
 CREATE TABLE Ainekset(
   resepti_id INTEGER REFERENCES Resepti(id),
@@ -33,7 +33,7 @@ CREATE TABLE Ainekset(
   mittayksikko varchar(15) NOT NULL,
   maara decimal(8,3) NOT NULL
 );
-/*
+
 CREATE TABLE Ravintoarvot(
   raaka_aine_id INTEGER REFERENCES Raaka_aineet(id),
   energia decimal(12,7),
@@ -41,4 +41,4 @@ CREATE TABLE Ravintoarvot(
   hiilarit decimal(11,7),
   rasva decimal(11,7),
   kuidut decimal(11,7)
-);*/
+);
