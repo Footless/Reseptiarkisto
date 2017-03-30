@@ -8,10 +8,6 @@
     ReseptitController::index();
   });
 
-  $routes->get('/rekisteroidy/', function() {
-    HelloWorldController::rekisteroidy();
-  });
-
   $routes->get('/resepti/:id', function($id) {
     ReseptitController::show($id);
   });
@@ -22,4 +18,14 @@
 
   $routes->get('/hiekkalaatikko/', function() {
     HelloWorldController::sandbox();
+  });
+
+  /* käyttäjään kohdistuvat */
+
+  $routes->post('/kayttajat/rekisteroidy/', function(){
+    KayttajatController::tallenna();
+  });
+
+  $routes->get('/kayttajat/rekisteroidy/', function() {
+    KayttajatController::rekisteroidy();
   });

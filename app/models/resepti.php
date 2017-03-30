@@ -7,7 +7,7 @@ class Resepti extends BaseModel{
   }
 
   public static function all() {
-    $query = DB::connection()->prepare('SELECT * FROM Resepti LEFT JOIN Kayttaja ON Kayttaja.id=Resepti.kayttaja_id');
+    $query = DB::connection()->prepare('SELECT Resepti.id as id, kayttaja_id, nimi, kategoria, kuvaus, ohje, valm_aika, annoksia, kayttajanimi FROM Resepti LEFT JOIN Kayttaja ON Kayttaja.id=Resepti.kayttaja_id');
     $query->execute();
     $rows = $query->fetchAll();
     $reseptit = array();
