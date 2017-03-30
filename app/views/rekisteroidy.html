@@ -26,6 +26,13 @@
       </div>
       <button type="submit" class="btn btn-primary">Rekisteröidy</button>
     </form>
+    {% if message == true %}
+    <br />
+    <div class="alert alert-danger alert-dismissable">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{message}}
+    </div>
+    {% endif %}
   </div>
 
 

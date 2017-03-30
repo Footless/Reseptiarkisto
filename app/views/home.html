@@ -5,9 +5,12 @@
     <h1>Tervetuloa Reseptiarkistoon!</h1>
   </div>
     <div class="container">
-      <div class="alert alert-success">
+      {% if message == true %}
+      <div class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         {{message}}
       </div>
+      {% endif %}
       <h2>Suosituimmat reseptit:</h2>
       <div class="row">
         <div class="col-sm-4">
