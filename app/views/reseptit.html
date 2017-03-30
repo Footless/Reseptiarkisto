@@ -4,71 +4,21 @@
     <div class="container">
       <h3>Reseptit</h3>
       <div class="row">
+        {% for resepti in reseptit %}
         <div class="col-sm-4">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <img src="{{base_path}}/assets/img/lihapullat.jpg" class="img-responsive" />
-              <h4>Testimielessä annoksen nimi tässä</h4>
-              <p>Tässä kohtaa on jotain pientä esittelyä reseptistä ja sen sisällöstä, pituus voi olla rajoitettu tiettyyn merkkimäärään.</p>
-            </div>
-            <div class="panel-footer"><a href="#">aapeli666</a> tiedot yms.<p> linkit</p></div>
-          </div>
-          <div class="panel panel-default">
-            <div class="panel-heading">Lihapullat</div>
-            <div class="panel-body"><img src="{{base_path}}/assets/img/lihapullat.jpg" class="img-responsive" /></div>
-            <div class="panel-footer"><a href="#">aapeli666</a> tiedot yms.<p> linkit</p></div>
-          </div>
-          <div class="panel panel-default">
-            <div class="panel-heading">Lihapullat</div>
-            <div class="panel-body">
-              <img src="{{base_path}}/assets/img/lihapullat.jpg" class="img-responsive" />
-
-            </div>
-            <div class="panel-footer"><a href="#">aapeli666</a> tiedot yms.<p> linkit</p></div>
-          </div>
+          {% if loop.index is divisible by(2) %}
+          {{ include('reseptit_resepti_item.html') }}
         </div>
         <div class="col-sm-4">
-          <div class="panel panel-default height: 50px">
-            <div class="panel-heading">Lihapullat</div>
-            <div class="panel-body">
-              <img src="{{base_path}}/assets/img/lihapullat.jpg" class="img-responsive" />
-              <p>Tässäkin on jotain lätinää, ihan että saadaan vähän vaihtelua tulostuksen väleihin. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </div>
-            <div class="panel-footer"><a href="#">aapeli666</a> tiedot yms.<p> linkit</p></div>
-          </div>
-          <div class="panel panel-default">
-            <div class="panel-heading">Lihapullat</div>
-            <div class="panel-body"><img src="{{base_path}}/assets/img/lihapullat.jpg" class="img-responsive" /></div>
-            <div class="panel-footer"><a href="#">aapeli666</a> tiedot yms.<p> linkit</p></div>
-          </div>
-          <div class="panel panel-default">
-            <div class="panel-heading">Lihapullat</div>
-            <div class="panel-body"><img src="{{base_path}}/assets/img/lihapullat.jpg" class="img-responsive" /></div>
-            <div class="panel-footer"><a href="#">aapeli666</a> tiedot yms.<p> linkit</p></div>
-          </div>
-          <div class="panel panel-default">
-            <div class="panel-heading">Lihapullat</div>
-            <div class="panel-body"><img src="{{base_path}}/assets/img/lihapullat.jpg" class="img-responsive" /></div>
-            <div class="panel-footer"><a href="#">aapeli666</a> tiedot yms.<p> linkit</p></div>
-          </div>
+          {% elseif loop.index is divisible by(3) %}
+          {{ include('reseptit_resepti_item.html') }}
         </div>
         <div class="col-sm-4">
-          <div class="panel panel-default height: 40px">
-            <div class="panel-heading">Lihapullat</div>
-            <div class="panel-body"><img src="{{base_path}}/assets/img/lihapullat.jpg" class="img-responsive" /></div>
-            <div class="panel-footer"><a href="#">aapeli666</a> tiedot yms.<p> linkit</p></div>
-          </div>
-          <div class="panel panel-default">
-            <div class="panel-heading">Lihapullat</div>
-            <div class="panel-body"><img src="{{base_path}}/assets/img/lihapullat.jpg" class="img-responsive" /></div>
-            <div class="panel-footer"><a href="#">aapeli666</a> tiedot yms.<p> linkit</p></div>
-          </div>
-          <div class="panel panel-default">
-            <div class="panel-heading">Lihapullat</div>
-            <div class="panel-body"><img src="{{base_path}}/assets/img/lihapullat.jpg" class="img-responsive" /></div>
-            <div class="panel-footer"><a href="#">aapeli666</a> tiedot yms.<p> linkit</p></div>
-          </div>
+          {% else %}
+          {{ include('reseptit_resepti_item.html') }}
+          {% endif %}
         </div>
+        {% endfor %}
       </div>
   </div>
 

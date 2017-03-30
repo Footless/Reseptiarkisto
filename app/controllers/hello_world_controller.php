@@ -22,4 +22,10 @@
     public static function lisaaResepti(){
       View::make('lisaa_resepti.html');
     }
+
+    public static function sandbox(){
+    $reseptit = Resepti::all();
+    // Kint-luokan dump-metodi tulostaa muuttujan arvon
+    Kint::dump($reseptit);
+  }
   }

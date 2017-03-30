@@ -5,17 +5,21 @@
   });
 
   $routes->get('/reseptit/', function() {
-    HelloWorldController::reseptit();
+    ReseptitController::index();
   });
 
   $routes->get('/rekisteroidy/', function() {
     HelloWorldController::rekisteroidy();
   });
 
-  $routes->get('/resepti/', function() {
-    HelloWorldController::resepti();
+  $routes->get('/resepti/:id', function($id) {
+    ReseptitController::show($id);
   });
 
   $routes->get('/lisaa-resepti/', function() {
     HelloWorldController::lisaaResepti();
+  });
+
+  $routes->get('/hiekkalaatikko/', function() {
+    HelloWorldController::sandbox();
   });

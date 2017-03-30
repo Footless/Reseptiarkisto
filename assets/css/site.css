@@ -1,3 +1,5 @@
+/* yleinen näkymä */
+
 #main-container{
   max-width: 1200px;
   padding: 50px 25px;
@@ -19,14 +21,10 @@ html {
   height: 100%;
 }
 
+
+
 p {
   margin: 5px;
-}
-
-.recipe_info{
-  top: 2rem;
-  right: 3%;
-  position: absolute;
 }
 
 h3 {
@@ -48,17 +46,24 @@ h3 {
 .page-header {
   padding-top: 10px;
 }
-.container-fluid > .footer_oma {
-  margin-left: 0;
-  margin-right: 0;
-  height: 100px;
-}
+
+/* resepti-panelit */
 
 .panel-body {
   padding: 0;
 }
 
+.panel-body h4 {
+  margin: 3px 0 0 5px;
+}
+
 /* footer */
+
+.container-fluid > .footer_oma {
+  margin-left: 0;
+  margin-right: 0;
+  height: 100px;
+}
 
 .footer_oma {
   height: 100px;
@@ -99,4 +104,12 @@ ul.recipe_bar > li a {
   padding: 2px 5px 2px 5px;
   margin: 0 50px 0 50px;
   text-decoration: none;
+}
+
+/* resepti-sivu */
+
+span.recipe_info {
+  top: 2rem;
+  right: 3%;
+  position: absolute;
 }
