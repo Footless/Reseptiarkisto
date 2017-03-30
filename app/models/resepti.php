@@ -30,7 +30,7 @@ class Resepti extends BaseModel{
   }
 
   public static function show($id){
-    $query = DB::connection()->prepare('SELECT * FROM Resepti WHERE id= :id LIMIT 1');
+    $query = DB::connection()->prepare('SELECT Resepti.id as id, kayttaja_id, nimi, kategoria, kuvaus, ohje, valm_aika, annoksia, kayttajanimi FROM Resepti JOIN Kayttaja ON Kayttaja.id=Resepti.kayttaja_id WHERE Resepti.id= :id LIMIT 1');
     $query->execute(array('id' => $id));
     $row = $query->fetch();
 
@@ -43,7 +43,8 @@ class Resepti extends BaseModel{
         'kuvaus' => $row['kuvaus'],
         'ohje' => $row['ohje'],
         'valm_aika' => $row['valm_aika'],
-        'annoksia' => $row['annoksia']
+        'annoksia' => $row['annoksia'],
+        'kayttajanimi' => $row['kayttajanimi']
       ));
 
       return $resepti;
