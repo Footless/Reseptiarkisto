@@ -4,18 +4,6 @@
     HelloWorldController::index();
   });
 
-  $routes->get('/reseptit/', function() {
-    ReseptitController::index();
-  });
-
-  $routes->get('/resepti/:id', function($id) {
-    ReseptitController::show($id);
-  });
-
-  $routes->get('/lisaa-resepti/', function() {
-    HelloWorldController::lisaaResepti();
-  });
-
   $routes->get('/hiekkalaatikko/', function() {
     HelloWorldController::sandbox();
   });
@@ -29,3 +17,17 @@
   $routes->get('/kayttajat/rekisteroidy/', function() {
     KayttajatController::rekisteroidy();
   });
+
+/* resepti kontrollerit */
+
+$routes->get('/reseptit/', function() {
+  ReseptitController::index();
+});
+
+$routes->get('/resepti/:id', function($id) {
+  ReseptitController::show($id);
+});
+
+$routes->get('/lisaa-resepti/', function() {
+  ReseptitController::getIngs();
+});

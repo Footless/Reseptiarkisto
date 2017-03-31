@@ -64,5 +64,12 @@
     <button type="button" class="btn btn-primary">Lisää resepti</button>
   </form>
   </div>
-
+  <script>
+    var data = {{raaka_aineet|json_encode|raw}};
+    var raaka_aineet = Object.keys(data).map(function(k) { return data[k][0] });
+    var input = document.getElementById("raaka_aine");
+    new Awesomplete(input, {
+	     list: raaka_aineet
+  });
+  </script>
 {% endblock %}

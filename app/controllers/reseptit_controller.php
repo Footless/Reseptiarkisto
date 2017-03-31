@@ -11,4 +11,9 @@ class ReseptitController extends BaseController{
     $resepti = Resepti::show($id);
     View::make('resepti.html', array('resepti' => $resepti));
   }
+
+  public static function getIngs() {
+    $raaka_aineet = Resepti::getIngs();
+    View::make('lisaa_resepti.html', array('raaka_aineet' => $raaka_aineet));
+  }
 }

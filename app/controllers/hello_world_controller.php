@@ -20,7 +20,7 @@
     }
 
     public static function sandbox(){
-    $reseptit = Resepti::all();
+    $reseptit = Resepti::getIngs();
     // Kint-luokan dump-metodi tulostaa muuttujan arvon
     Kint::dump($reseptit);
   }

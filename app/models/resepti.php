@@ -51,4 +51,13 @@ class Resepti extends BaseModel{
     }
     return null;
   }
+
+  public static function getIngs() {
+    $query = DB::connection()->prepare('SELECT nimi FROM Raaka_aineet');
+    $query->execute();
+    $rows = $query->fetchAll();
+
+    $raaka_aineet_json = json_encode($rows);
+    return $rows;
+  }
 }
