@@ -4,24 +4,52 @@
 <h3>Lisää resepti</h3>
   <div class="container">
     <form class="form-horizontal">
+      <h4>Raaka-aineet</h4>
+      <div id="raaka_aine_valinnat">
+
+      </div>
       <div class="form-group">
-        <div class="col-sm-2">
-          <label class="control-label"><input type="checkbox" value=""> Oma raaka-aine</label>
-        </div>
         <div class="col-sm-6">
-          <input class="form-control" id="raaka_aine" type="text" placeholder="Raaka-aine">
+          <input class="form-control" id="raaka_aine" type="text" placeholder="Raaka-aine" name="resepti_raaka_aineet[]">
+        </div>
+        <div class="col-sm-3">
+          <input class="form-control" id="maara" type="text" placeholder="Määrä" name="resepti_maarat[]">
         </div>
         <div class="col-sm-2">
-          <input class="form-control" id="maara" type="text" placeholder="Määrä">
+          <select class="form-control" id="mitta_yksikko" name="mitta_yksikko[]">
+            <option value="0">Mittayksikkö</option>
+            <option value="1">dl</option>
+            <option value="2">cl</option>
+            <option value="3">rkl</option>
+            <option value="4">tl</option>
+            <option value="5">grammaa</option>
+            <option value="6">kappaletta</option>
+          </select>
         </div>
-        <div class="col-sm-2">
-          <input class="form-control" id="yksikko" type="text" placeholder="Yksikkö">
+        <div class="col-sm-1">
+
         </div>
       </div>
+      <script>
+      var index = 1;
+      var yksikot = [];
+      function test() {
+        var target = document.getElementById("raaka_aine_valinnat");
+        var e = document.getElementById("mitta_yksikko");
+        yksikot.push(e.value);
+        var yksikko = e.options[e.selectedIndex].text;
+        var r=$('<div class="form-group" id="rivi'+index+'"><div class="col-sm-6"><input class="form-control" type="text" name="resepti_raaka_aineet[]" value="'+document.getElementById("raaka_aine").value+'" disabled></div><div class="col-sm-3"><input class="form-control" type="text" value="'+ document.getElementById("maara").value +'" name="maarat[]" disabled></div><div class="col-sm-2"><input class="form-control" type="text" name="mitta_yksikko[]" value="'+yksikko+'" disabled></input></div><div class="col-sm-1"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i> <a onclick="sulje(rivi'+index+')" class="sulje"><i class="fa fa-times fa-2x redicon" aria-hidden="true"></i></a></div></div>');
 
+        $(target).append(r);
+        index++;
+        document.getElementById("raaka_aine").value = "";
+        document.getElementById("maara").value = "";
+        document.getElementById("mitta_yksikko").value = 0;
+}
+      </script>
     <div class="row">
       <div class="col-sm-12">
-        <button type="button" class="btn btn-default">Lisää raaka-aine</button>
+        <button type="button" class="btn btn-default" onClick="test()">Lisää raaka-aine</button>
         <hr />
       </div>
     </div>
@@ -71,5 +99,10 @@
     new Awesomplete(input, {
 	     list: raaka_aineet
   });
+  </script>
+  <script>
+  function sulje(parentDiv) {
+    parentDiv.remove();
+  }
   </script>
 {% endblock %}
