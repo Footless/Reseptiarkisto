@@ -1,13 +1,13 @@
 <?php
 class Kayttaja extends BaseModel{
-  public $id, $kayttajanimi, $salasana;
+  public $id, $kayttajanimi, $salasana, $admin;
 
   public function __construct($attributes){
     parent::__construct($attributes);
   }
 
   public static function all() {
-    $query = DB::connection()->prepare('SELECT * FROM Kayttaja');
+    $query = DB::connection()->prepare('SELECT * FROM Kayttaja ORDER BY id');
     $query->execute();
     $rows = $query->fetchAll();
     $kayttajat = array();
@@ -16,7 +16,8 @@ class Kayttaja extends BaseModel{
       $kayttajat[] = new Kayttaja(array(
         'id' => $row['id'],
         'kayttajanimi' => $row['kayttajanimi'],
-        'salasana' => $row['salasana']
+        'salasana' => $row['salasana'],
+        'admin' => $row['admin']
       ));
     }
     return $kayttajat;
@@ -31,9 +32,10 @@ class Kayttaja extends BaseModel{
       $kayttaja = new Kayttaja(array(
         'id' => $row['id'],
         'kayttajanimi' => $row['kayttajanimi'],
-        'salasana' => $row['salasana']
+        'salasana' => $row['salasana'],
+        'admin' => $row['admin']
       ));
-      return kayttaja;
+      return $kayttaja;
     }
     return null;
   }
@@ -41,5 +43,10 @@ class Kayttaja extends BaseModel{
   public function save() {
     $query = DB::connection()->prepare('INSERT INTO Kayttaja (kayttajanimi, salasana) VALUES (:kayttajanimi, :salasana)');
     $query->execute(array('kayttajanimi' => $this->kayttajanimi, 'salasana' => $this->salasana));
+  }
+
+  public function edit() {
+    $query = DB::connection()->prepare('UPDATE Kayttaja SET kayttajanimi = :kayttajanimi, admin = :admin WHERE id = :id');
+    $query->execute(array('id' => $this->id, 'kayttajanimi' => $this->kayttajanimi, 'admin' => $this->admin));
   }
 }

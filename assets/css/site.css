@@ -24,7 +24,7 @@ html {
 
 
 p {
-  margin: 5px;
+  margin: 5px 5px 15px 5px;
 }
 
 h3 {
@@ -121,4 +121,13 @@ span.recipe_info {
   top: 2rem;
   right: 3%;
   position: absolute;
+}
+
+/* käyttäjä sivu */
+button.room {
+  margin: 5px 15px 0 15px;
+}
+
+td.hidden {
+  visibility: hidden;
 }

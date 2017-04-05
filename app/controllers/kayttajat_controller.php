@@ -25,4 +25,26 @@
       }
       Redirect::to('/', array('message' => 'Rekisteröityminen onnistui!'));
     }
+
+    public static function all() {
+      $kayttajat = Kayttaja::all();
+      View::make('kayttajat.html', array('kayttajat' => $kayttajat));
+    }
+
+    public static function find($id) {
+      $kayttaja = Kayttaja::find($id);
+      View::make('kayttaja.html', array('kayttaja' => $kayttaja));
+    }
+
+    public function edit() {
+      $params = $_POST;
+      $kayttaja = new Kayttaja(array(
+        'id' => $params['id'],
+        'kayttajanimi' => $params['kayttajanimi'],
+        'admin' => $params['admin']
+      ));
+      $kayttaja->edit();
+
+      Redirect::to('/kayttajat/' . $kayttaja->id, array('message' => 'Muutokset tallennettu'));
+    }
   }

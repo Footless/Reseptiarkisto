@@ -1,18 +1,27 @@
 CREATE TABLE Kayttaja(
   id SERIAL PRIMARY KEY,
   kayttajanimi varchar(20) NOT NULL,
-  salasana varchar(20) NOT NULL
+  salasana varchar(20) NOT NULL,
+  admin boolean NOT NULL
 );
 
 CREATE TABLE Resepti(
   id SERIAL PRIMARY KEY,
   kayttaja_id INTEGER REFERENCES Kayttaja(id),
   nimi varchar(50) NOT NULL,
+  kuva varchar(100),
   kategoria INTEGER NOT NULL,
+  lisatty DATE NOT NULL,
   kuvaus varchar(200) NOT NULL,
-  ohje varchar(2000) NOT NULL,
+  ohje TEXT[],
   valm_aika INTEGER NOT NULL,
   annoksia INTEGER NOT NULL
+);
+
+CREATE TABLE Ohje(
+  resepti_id INTEGER REFERENCES Resepti(id),
+  ohje_alanumero INTEGER NOT NULL,
+  ohje VARCHAR(1000)
 );
 
 CREATE TABLE Suosikit(

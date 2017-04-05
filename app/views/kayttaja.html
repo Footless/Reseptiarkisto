@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="page-header">
+    <h3>{{kayttaja.kayttajanimi}}</h3>
+  </div>
+    <div class="container">
+      {% if message %}
+      <div class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{message}}
+      </div>
+      {% endif %}
+      <form action="{{base_path}}/kayttajat/edit/" method="post">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Käyttäjänimi</th>
+              <th>Nollaa salasana</th>
+              <th>Admin-oikeudet</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="hidden"><input class="form-control" name="id" id="id" type="number" value="{{kayttaja.id}}" /></td>
+              <td><input class="form-control" type="text" value="{{kayttaja.id}}" disabled /></td>
+              <td><input class="form-control" type="text" name="kayttajanimi" id="kayttajanimi" value="{{kayttaja.kayttajanimi}}" /> </td>
+              <td><button class="btn btn-primary" disabled>Nollaa</button></td>
+              <td>
+                <select id="admin" name="admin" class="form-control">
+                {% if kayttaja.admin %}
+                <option value="1">True</option>
+                <option value="0">False</option>
+                {% else %}
+                <option value="0">False</option>
+                <option value="1">True</option>
+                {% endif %}
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary room">Tallenna</button>
+        <button type="reset" class="btn btn-danger room">Hylkää muutokset</button>
+      </form>
+  </div>
+
+{% endblock %}

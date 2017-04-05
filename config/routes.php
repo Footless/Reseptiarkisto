@@ -18,6 +18,18 @@
     KayttajatController::rekisteroidy();
   });
 
+  $routes->get('/kayttajat/', function() {
+    KayttajatController::all();
+  });
+
+  $routes->get('/kayttajat/:id', function($id) {
+    KayttajatController::find($id);
+  });
+
+  $routes->post('/kayttajat/edit/', function() {
+    KayttajatController::edit();
+  });
+
 /* resepti kontrollerit */
 
 $routes->get('/reseptit/', function() {

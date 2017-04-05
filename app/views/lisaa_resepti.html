@@ -3,7 +3,7 @@
 {% block content %}
 <h3>Lisää resepti</h3>
   <div class="container">
-    <form class="form-horizontal">
+    <form class="form-horizontal" action="{{base_path}}/lisaa-resepti/" method="post" enctype="multipart/form-data">
       <h4>Raaka-aineet</h4>
       <div id="raaka_aine_valinnat">
 
@@ -30,23 +30,6 @@
 
         </div>
       </div>
-      <script>
-      var index = 1;
-      var yksikot = [];
-      function test() {
-        var target = document.getElementById("raaka_aine_valinnat");
-        var e = document.getElementById("mitta_yksikko");
-        yksikot.push(e.value);
-        var yksikko = e.options[e.selectedIndex].text;
-        var r=$('<div class="form-group" id="rivi'+index+'"><div class="col-sm-6"><input class="form-control" type="text" name="resepti_raaka_aineet[]" value="'+document.getElementById("raaka_aine").value+'" disabled></div><div class="col-sm-3"><input class="form-control" type="text" value="'+ document.getElementById("maara").value +'" name="maarat[]" disabled></div><div class="col-sm-2"><input class="form-control" type="text" name="mitta_yksikko[]" value="'+yksikko+'" disabled></input></div><div class="col-sm-1"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i> <a onclick="sulje(rivi'+index+')" class="sulje"><i class="fa fa-times fa-2x redicon" aria-hidden="true"></i></a></div></div>');
-
-        $(target).append(r);
-        index++;
-        document.getElementById("raaka_aine").value = "";
-        document.getElementById("maara").value = "";
-        document.getElementById("mitta_yksikko").value = 0;
-}
-      </script>
     <div class="row">
       <div class="col-sm-12">
         <button type="button" class="btn btn-default" onClick="test()">Lisää raaka-aine</button>
@@ -56,8 +39,16 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="form-group">
+          <h5>Valitse kuva reseptillesi (valinnainen):</h5>
+          <input type="file" name="fileToUpload" id="fileToUpload">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
           <label for="kuvaus">Kuvaus</label>
-          <textarea class="form-control" rows="10" id="kuvaus"></textarea>
+          <textarea class="form-control" rows="10" id="kuvaus" name="kuvaus"></textarea>
         </div>
       </div>
     </div>
@@ -65,26 +56,26 @@
       <div class="col-sm-12">
         <div class="form-group">
           <label for="ohjeet">Ohjeet:</label>
-          <textarea class="form-control" rows="10" id="ohjeet"></textarea>
+          <textarea class="form-control" rows="10" id="ohjeet" name="ohjeet"></textarea>
         </div>
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="email">Valmistusaika: </label>
+      <label class="control-label col-sm-2" for="valm_aika">Valmistusaika: </label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="aika" placeholder="Kauanko valmistaminen kestää?">
+        <input type="text" class="form-control" id="valm_aika" placeholder="Kauanko valmistaminen kestää?" name="valm_aika">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="pwd">Annoksia: </label>
+      <label class="control-label col-sm-2" for="annoksia">Annoksia: </label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="annoksia" placeholder="Montako annosta reseptistä tulee?">
+        <input type="text" class="form-control" id="annoksia" placeholder="Montako annosta reseptistä tulee?" name="annoksia">
       </div>
     </div>
     <div class="form-group">
       <label for="valitse_kategoria">Valitse kategoria</label>
       <select class="form-control" id="valitse_kategoria">
-        <<option value="1">Alkuruoka</option>
+        <<option value="1">Alkuruoka tai naposteltava</option>
         <<option value="2">Pääruoka</option>
         <<option value="3">Jälkiruoka tai leivonnainen</option>
       </select>
@@ -93,14 +84,13 @@
   </form>
   </div>
   <script>
-    var data = {{raaka_aineet|json_encode|raw}};
-    var raaka_aineet = Object.keys(data).map(function(k) { return data[k][0] });
-    var input = document.getElementById("raaka_aine");
-    new Awesomplete(input, {
-	     list: raaka_aineet
+  var data = {{raaka_aineet|json_encode|raw}};
+  var raaka_aineet = Object.keys(data).map(function(k) { return data[k][0] });
+  var input = document.getElementById("raaka_aine");
+  new Awesomplete(input, {
+     list: raaka_aineet
   });
-  </script>
-  <script>
+
   function sulje(parentDiv) {
     parentDiv.remove();
   }
