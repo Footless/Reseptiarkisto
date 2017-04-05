@@ -8,10 +8,9 @@ Yleisiä linkkejä:
 Linkit yksittäisiin sivuihin:
 
 * [Etusivu](http://vankari.users.cs.helsinki.fi/reseptiarkisto/)
-* [Rekisteröidy](http://vankari.users.cs.helsinki.fi/reseptiarkisto/rekisteroidy/)
+* [Rekisteröidy](http://vankari.users.cs.helsinki.fi/reseptiarkisto/kayttajat/rekisteroidy/)
 * [Reseptit](http://vankari.users.cs.helsinki.fi/reseptiarkisto/reseptit/)
-* [Yksittäinen resepti](http://vankari.users.cs.helsinki.fi/reseptiarkisto/resepti)
-* [Lisää resepti](http://vankari.users.cs.helsinki.fi/reseptiarkisto/lisaa-resepti)
+* [Lisää resepti](http://vankari.users.cs.helsinki.fi/reseptiarkisto/lisaa-resepti/)
 
 Reseptin muokkaaminen tulee tapahtumaan reseptin omassa näkymässä, oikeus siihen on reseptin tekijällä ja ylläpidolla.
 
