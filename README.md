@@ -11,6 +11,7 @@ Linkit yksittäisiin sivuihin:
 * [Rekisteröidy](http://vankari.users.cs.helsinki.fi/reseptiarkisto/kayttajat/rekisteroidy/)
 * [Reseptit](http://vankari.users.cs.helsinki.fi/reseptiarkisto/reseptit/)
 * [Lisää resepti](http://vankari.users.cs.helsinki.fi/reseptiarkisto/lisaa-resepti/)
+* [Käyttäjät](https://vankari.users.cs.helsinki.fi/reseptiarkisto/kayttajat/)
 
 Reseptin muokkaaminen tulee tapahtumaan reseptin omassa näkymässä, oikeus siihen on reseptin tekijällä ja ylläpidolla.
 
