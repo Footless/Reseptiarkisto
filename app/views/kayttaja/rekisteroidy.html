@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>Rekisteröidy Reseptiarkiston käyttäjäksi</h1>
+  </div>
+  <div class="container">
+    {% if errors %}
+    <div class="alert alert-danger alert-dismissable">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <ul>
+        {% for error in errors %}
+        <li>{{error.0}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    <form method="post" action="{{base_path}}/kayttajat/rekisteroidy/">
+      <div class="form-group">
+
+        <label for="username">Käyttäjänimi:</label>
+        <div class="input-group">
+          <div class="input-group-addon"><i class="fa fa-user fa-fw"></i></div>
+          <input type="username" class="form-control" name="kayttajanimi" id="username" value="{{syote.kayttajanimi}}" placeholder="Käyttäjänimi" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="sposti">Sähköpostiosoite:</label>
+        <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></div>
+        <input type="email" class="form-control" name="sposti" id="sposti" value="{{syote.sposti}}" placeholder="Sähköpostiosoite" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="etunimi">Etunimi:</label>
+        <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-user fa-fw"></i></div>
+        <input type="text" class="form-control" name="etunimi" id="etunimi" value="{{syote.etunimi}}" placeholder="Etunimi" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="sukunimi">Sukunimi:</label>
+        <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-user fa-fw"></i></div>
+        <input type="text" class="form-control" name="sukunimi" id="sukunimi" value="{{syote.sukunimi}}" placeholder="Sukunimi" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="salasana">Salasana:</label>
+        <div class="input-group">
+          <div class="input-group-addon"><i class="fa fa-key fa-fw"></i></div>
+          <input type="password" class="form-control" id="pwd" name="salasana" placeholder="Salasana" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="salasana_toisto">Toista salasana:</label>
+        <div class="input-group">
+          <div class="input-group-addon"><i class="fa fa-key fa-fw"></i></div>
+          <input type="password" class="form-control" id="pwd" name="salasana_toisto" placeholder="Salasana uudestaan" />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Rekisteröidy</button>
+    </form>
+    {% if message == true %}
+    <br />
+    <div class="alert alert-danger alert-dismissable">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{message}}
+    </div>
+    {% endif %}
+  </div>
+
+
+{% endblock %}

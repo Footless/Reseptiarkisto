@@ -1,0 +1,19 @@
+<div class="modal fade" id="kirjauduUlosModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Haluatko varmasti kirjautua ulos?</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-inline" method="post" action="{{base_path}}/kayttajat/kirjaudu-ulos/">
+          <input class="hidden" value="{{user_logger_in.id}}" name="id" />
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Kirjaudu ulos</button>
+            <button type="reset" class="btn btn-danger" data-dismiss="modal">Peruuta</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

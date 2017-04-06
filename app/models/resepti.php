@@ -30,7 +30,7 @@ class Resepti extends BaseModel{
   }
 
   public static function show($id){
-    $query = DB::connection()->prepare('SELECT Resepti.id as id, kayttaja_id, nimi, kategoria, kuvaus, ohje, valm_aika, annoksia, kayttajanimi FROM Resepti JOIN Kayttaja ON Kayttaja.id=Resepti.kayttaja_id WHERE Resepti.id= :id LIMIT 1');
+    $query = DB::connection()->prepare('SELECT Resepti.id as id, kayttaja_id, nimi, kategoria, kuvaus, valm_aika, annoksia, kayttajanimi FROM Resepti JOIN Kayttaja ON Kayttaja.id=Resepti.kayttaja_id WHERE Resepti.id= :id LIMIT 1');
     $query->execute(array('id' => $id));
     $row = $query->fetch();
 
@@ -41,7 +41,6 @@ class Resepti extends BaseModel{
         'nimi' => $row['nimi'],
         'kategoria' => $row['kategoria'],
         'kuvaus' => $row['kuvaus'],
-        'ohje' => $row['ohje'],
         'valm_aika' => $row['valm_aika'],
         'annoksia' => $row['annoksia'],
         'kayttajanimi' => $row['kayttajanimi']
@@ -52,12 +51,33 @@ class Resepti extends BaseModel{
     return null;
   }
 
+  public static function ohjeet($id) {
+    $query =DB::connection()->prepare('SELECT unnest(ohje) FROM Resepti WHERE id = :id');
+    $query->execute(array('id' => $id));
+    $rows = $query->fetchAll();
+
+    if ($rows) {
+      foreach($rows as $row) {
+        $ohjeet[] = new Ohje(array(
+          'ohje' => $row['unnest']
+        ));
+      }
+      return $ohjeet;
+    }
+    return null;
+    }
+
   public static function getIngs() {
     $query = DB::connection()->prepare('SELECT nimi FROM Raaka_aineet');
     $query->execute();
     $rows = $query->fetchAll();
 
-    $raaka_aineet_json = json_encode($rows);
     return $rows;
+  }
+
+  public function delete($id){
+    $query = DB::connection()->prepare('DELETE FROM Resepti WHERE id = :id');
+    $query->execute(array('id' => $id));
+    return null;
   }
 }

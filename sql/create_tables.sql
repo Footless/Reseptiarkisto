@@ -1,7 +1,10 @@
 CREATE TABLE Kayttaja(
   id SERIAL PRIMARY KEY,
-  kayttajanimi varchar(20) NOT NULL,
-  salasana varchar(20) NOT NULL,
+  kayttajanimi varchar(20),
+  etunimi varchar(20),
+  sukunimi varchar(30),
+  sposti varchar(50),
+  salasana varchar(20),
   admin boolean NOT NULL
 );
 
@@ -18,15 +21,9 @@ CREATE TABLE Resepti(
   annoksia INTEGER NOT NULL
 );
 
-CREATE TABLE Ohje(
-  resepti_id INTEGER REFERENCES Resepti(id),
-  ohje_alanumero INTEGER NOT NULL,
-  ohje VARCHAR(1000)
-);
-
 CREATE TABLE Suosikit(
   kayttaja_id INTEGER REFERENCES Kayttaja(id),
-  resepti_id INTEGER REFERENCES Resepti(id)
+  resepti_id INTEGER REFERENCES Resepti(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Raaka_aineet(
@@ -36,7 +33,7 @@ CREATE TABLE Raaka_aineet(
 
 
 CREATE TABLE Ainekset(
-  resepti_id INTEGER REFERENCES Resepti(id),
+  resepti_id INTEGER REFERENCES Resepti(id) ON DELETE CASCADE,
   raaka_aine_id INTEGER REFERENCES Raaka_aineet(id),
   raaka_aine_nimi varchar(50),
   mittayksikko varchar(15) NOT NULL,

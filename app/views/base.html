@@ -52,6 +52,9 @@
                 <li><a href="{{base_path}}/reseptit/">Jälkiruoat ja leivonnaiset</a></li>
               </ul>
             </li>
+            {% if user_logged_in.admin %}
+            <li><a href="{{base_path}}/kayttajat/">Käyttäjät</a></li>
+            {% endif %}
           </ul>
           <form class="navbar-form navbar-right">
             <div class="input-group">
@@ -63,42 +66,26 @@
               </div>
             </div>
           </form>
+          {% if user_logged_in %}
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{base_path}}/kayttajat/{{user_logged_in.id}}"><span class="glyphicon glyphicon-cog"></span> Omat tiedot</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#kirjauduUlosModal"><span class="glyphicon glyphicon-log-out"></span> Kirjaudu ulos</a></li>
+          </ul>
+          {% else %}
           <ul class="nav navbar-nav navbar-right">
             <li><a href="{{base_path}}/kayttajat/rekisteroidy/"><span class="glyphicon glyphicon-user"></span> Rekisteröidy</a></li>
             <li><a href="#" data-toggle="modal" data-target="#kirjauduModal"><span class="glyphicon glyphicon-log-in"></span> Kirjaudu sisään</a></li>
           </ul>
+          {% endif %}
         </div>
       </div>
     </nav>
     <!-- kirjautumisen modal -->
-    <div class="modal fade" id="kirjauduModal" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Kirjaudu sisään</h4>
-          </div>
-          <div class="modal-body">
-            <form class="form-inline">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon"><i class="fa fa-user fa-fw"></i></div>
-                  <input type="username" class="form-control" id="username" placeholder="Käyttäjätunnus">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon"><i class="fa fa-key fa-fw"></i></div>
-                  <input type="password" class="form-control" id="pwd" placeholder="Salasana">
-                </div>
-              </div>
-              <button type="submit" class="btn btn-primary">Kirjaudu</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    {{ include('kayttaja/login.html') }}
     <!-- kirjautumisen modal loppuu -->
+    <!-- uloskirjautumisen modal -->
+    {{ include('kayttaja/logout.html') }}
+    <!-- uloskirjautumisen modal loppuu -->
     <div id="main-container">
       <!-- Dynaaminen sisältö tulee tähän -->
       {% block content %}{% endblock %}

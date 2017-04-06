@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="page-header">
+    <h2>{{kayttaja.kayttajanimi}}</h2>
+  </div>
+    <div class="container">
+      {% if message %}
+      <div class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{message}}
+      </div>
+      {% endif %}
+      <form action="{{base_path}}/kayttajat/edit/" method="post">
+        <div class="form-group">
+          <input class="form-control hidden" name="id" id="id" type="number" value="{{kayttaja.id}}" />
+          {% if user_logged_in.admin %}
+          <label for="id">ID-numero</label>
+          <input class="form-control" id="id" type="text" value="{{kayttaja.id}}" disabled />
+          {% endif %}
+        </div>
+        <div class="form-group">
+          <input class="form-control hidden" type="text" name="kayttajanimi" id="kayttajanimi" value="{{kayttaja.kayttajanimi}}" />
+          <label for="kayttajanimi">Käyttäjänimi:</label>
+          <input class="form-control" type="text" name="kayttajanimi" id="kayttajanimi" value="{{kayttaja.kayttajanimi}}" disabled />
+        </div>
+        <div class="form-group">
+          <label for="etunimi">Etunimi:</label>
+          <input class="form-control" type="text" name="etunimi" id="etunimi" value="{{kayttaja.etunimi}}" />
+        </div>
+        <div class="form-group">
+          <label for="sukunimi">Sukunimi:</label>
+          <input class="form-control" type="text" name="sukunimi" id="sukunimi" value="{{kayttaja.sukunimi}}" />
+        </div>
+        <div class="form-group">
+          <label for="sposti">Sähköpostiosoite:</label>
+          <input class="form-control" type="email" id="sposti" name="sposti" value="{{kayttaja.sposti}}" />
+        </div>
+
+        <button type="submit" class="btn btn-primary room">Tallenna</button>
+        <button type="reset" class="btn btn-danger room">Hylkää muutokset</button>
+      </form>
+  </div>
+
+{% endblock %}

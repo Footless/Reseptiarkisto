@@ -96,14 +96,14 @@ h4 {
 ul.recipe_bar {
   list-style-type: none;
   margin: 0;
-  padding: 0 15px 0 15px;
+  padding: 5px 15px 5px 15px;
   margin: 10px 15px 10px 10px;
   overflow: hidden;
   background-color: #5999ff;
 }
 
 ul.recipe_bar > li {
-  float: right;
+  float: left;
 }
 
 ul.recipe_bar > li a {
@@ -121,6 +121,10 @@ span.recipe_info {
   top: 2rem;
   right: 3%;
   position: absolute;
+}
+
+i.room {
+  margin: 15px 10px 0 15px;
 }
 
 /* käyttäjä sivu */
