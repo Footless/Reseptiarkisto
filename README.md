@@ -14,6 +14,7 @@ Linkit yksittäisiin sivuihin:
 * [Käyttäjät](https://vankari.users.cs.helsinki.fi/reseptiarkisto/kayttajat/)
 
 Admin-oikeudet: käyttäjätunnus: Kari salasana: testi
+
 Ilman: käyttäjätunnus: Esko salasana: testi2
 
 Admin oikeuksilla pääsee tarkastelemaan ja muokkaamaan käyttäjiä. Myös käyttäjän poistaminen onnistuu, mutta käyttäjää ei varsinaisesti poisteta taulusta, vaan ainoastaan kaikki tiedot id:tä lukuunottamatta poistetaan. Varsinainen tietokohteen poistaminen on toteutettu Resepti-luokkaan, reseptin sivulta reseptin voi poistaa joko reseptin tekijä tai ylläpitäjä. Reseptin muokkaus tai lisääminen ei vielä tässä vaiheessa kehitystä toimi.
