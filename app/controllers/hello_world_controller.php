@@ -20,7 +20,7 @@
     }
 
     public static function sandbox(){
-    $kayttajat = Kayttaja::all();
+    $kayttajat = Resepti::showPersonal(1);
     // Kint-luokan dump-metodi tulostaa muuttujan arvon
     Kint::dump($kayttajat);
   }

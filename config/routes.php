@@ -44,10 +44,6 @@
 
 /* resepti kontrollerit */
 
-$routes->get('/reseptit/', function() {
-  ReseptitController::index();
-});
-
 $routes->get('/resepti/:id', function($id) {
   ReseptitController::show($id);
 });
@@ -66,4 +62,20 @@ $routes->get('/resepti/:id/poista/', function($id) {
 
 $routes->post('/resepti/:id/poista/', function($id) {
   ReseptitController::delete($id);
+});
+
+$routes->get('/resepti/alkuruoat/', function() {
+  ReseptitController::index(1);
+});
+
+$routes->get('/resepti/paaruoat/', function() {
+  ReseptitController::index(2);
+});
+
+$routes->get('/resepti/jalkiruoat/', function() {
+  ReseptitController::index(3);
+});
+
+$routes->get('/resepti/omat-reseptit/:id', function($id) {
+  ReseptitController::showPersonal($id);
 });

@@ -4,5 +4,7 @@
     <h4><a href="{{base_path}}/resepti/{{resepti.id}}">{{resepti.nimi}}</a></h4>
     <p>{{resepti.kuvaus}}</p>
   </div>
+  {% if resepti.kayttajanimi %}
   <div class="panel-footer"><a href="#">{{resepti.kayttajanimi}}</a> tiedot yms.<p> linkit</p></div>
+  {% endif %}
 </div>

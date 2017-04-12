@@ -2,8 +2,8 @@
 
 class ReseptitController extends BaseController{
 
-  public static function index(){
-    $reseptit = Resepti::all();
+  public static function index($i){
+    $reseptit = Resepti::all($i);
     View::make('resepti/reseptit.html', array('reseptit' => $reseptit));
   }
 
@@ -38,5 +38,10 @@ class ReseptitController extends BaseController{
     $resepti->delete($id);
 
     Redirect::to('/reseptit/', array('message' => 'Resepti poistettu'));
+  }
+
+  public static function showPersonal($id) {
+    $reseptit = Resepti::showPersonal($id);
+    View::make('resepti/omat_reseptit.html', array('reseptit' => $reseptit));
   }
 }

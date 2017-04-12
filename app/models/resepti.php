@@ -6,9 +6,9 @@ class Resepti extends BaseModel{
     parent::__construct($attributes);
   }
 
-  public static function all() {
-    $query = DB::connection()->prepare('SELECT Resepti.id as id, kayttaja_id, nimi, kategoria, kuvaus, ohje, valm_aika, annoksia, kayttajanimi FROM Resepti LEFT JOIN Kayttaja ON Kayttaja.id=Resepti.kayttaja_id');
-    $query->execute();
+  public static function all($i) {
+    $query = DB::connection()->prepare('SELECT Resepti.id as id, kayttaja_id, nimi, kategoria, kuvaus, ohje, valm_aika, annoksia, kayttajanimi FROM Resepti LEFT JOIN Kayttaja ON Kayttaja.id=Resepti.kayttaja_id WHERE Resepti.kategoria= :kategoria');
+    $query->execute(array('kategoria' => $i));
     $rows = $query->fetchAll();
     $reseptit = array();
 
@@ -79,5 +79,26 @@ class Resepti extends BaseModel{
     $query = DB::connection()->prepare('DELETE FROM Resepti WHERE id = :id');
     $query->execute(array('id' => $id));
     return null;
+  }
+
+  public static function showPersonal($kid) {
+    $query = DB::connection()->prepare('SELECT * FROM Resepti WHERE kayttaja_id= :kid');
+    $query->execute(array('kid' => $kid));
+    $rows = $query->fetchAll();
+    $reseptit = array();
+
+    foreach ($rows as $row) {
+      $reseptit[] = new Resepti(array(
+        'id' => $row['id'],
+        'kayttaja_id' => $row['kayttaja_id'],
+        'nimi' => $row['nimi'],
+        'kategoria' => $row['kategoria'],
+        'kuvaus' => $row['kuvaus'],
+        'valm_aika' => $row['valm_aika'],
+        'annoksia' => $row['annoksia'],
+      ));
+
+    }
+    return $reseptit;
   }
 }

@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-5">
-      {% if user_logger_in.admin or user_logged_in.id == resepti.kayttaja_id %}
+      {% if user_logged_in.admin or user_logged_in.id == resepti.kayttaja_id %}
       <a href="{{base_path}}/resepti/{{resepti.id}}/poista/"><i class="fa fa-times fa-2x redicon room" aria-hidden="true"></i> Poista resepti      </a>
       <a href="{{base_path}}/resepti/{{resepti.id}}/muokkaa/"><i class="fa fa-pencil fa-2x redicon room" aria-hidden="true"></i> Muokkaa reseptiä</a>
       {% endif %}

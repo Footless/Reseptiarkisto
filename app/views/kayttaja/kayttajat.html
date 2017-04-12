@@ -4,6 +4,7 @@
   <div class="page-header">
     <h2>Reseptiarkiston käyttäjät</h2>
   </div>
+  {% if user_logged_in.admin %}
     <div class="container">
       {% if message %}
       <div class="alert alert-success alert-dismissable">
@@ -56,5 +57,9 @@
       <button class="btn btn-danger room" type="reset">Hylkää muutokset</button>
       </form>
   </div>
-
+  {% else %}
+  <div class="danger">
+    Sinulla ei ole oikeuksia tälle sivulle.
+  </div>
+{% endif %}
 {% endblock %}

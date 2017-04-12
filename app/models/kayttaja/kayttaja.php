@@ -76,7 +76,7 @@ class Kayttaja extends BaseModel{
   }
 
   public function delete() {
-    $query = DB::connection()->prepare('UPDATE Kayttaja SET kayttajanimi = NULL, salasana = NULL, admin = FALSE WHERE id = :id');
+    $query = DB::connection()->prepare('UPDATE Kayttaja SET kayttajanimi = NULL, salasana = NULL, admin = FALSE, etunimi = NULL, sukunimi = NULL, sposti = NULL WHERE id = :id');
     $query->execute(array('id' => $this->id));
   }
 

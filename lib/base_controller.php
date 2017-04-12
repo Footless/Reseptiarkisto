@@ -13,9 +13,10 @@
     }
 
     public static function check_logged_in(){
-      if(!isset($_SESSION['user'])){
-        Redirect::to('/', array('message' => 'Kirjaudu sisään'));
+      if(isset($_SESSION['user'])  && $_SESSION['user'] != ''){
+        return true;
       }
+      return false;
     }
 
   }
