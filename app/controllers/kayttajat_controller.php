@@ -62,16 +62,19 @@
     }
 
     public static function all() {
+      self::check_logged_in();
       $kayttajat = Kayttaja::all();
       View::make('kayttaja/kayttajat.html', array('kayttajat' => $kayttajat));
     }
 
     public static function find($id) {
+      self::check_logged_in();
       $kayttaja = Kayttaja::find($id);
       View::make('kayttaja/kayttaja.html', array('kayttaja' => $kayttaja));
     }
 
     public function edit() {
+      self::check_logged_in();
       $params = $_POST;
       $kayttaja = new Kayttaja(array(
         'id' => $params['id'],
@@ -86,6 +89,7 @@
     }
 
     public function kayttajatEdit() {
+      self::check_logged_in();
       $id = $_POST['id'];
       $kayttajanimi = $_POST['kayttajanimi'];
       $delete = $_POST['delete'];

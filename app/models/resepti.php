@@ -76,9 +76,10 @@ class Resepti extends BaseModel{
   }
 
   public function delete($id){
-    $query = DB::connection()->prepare('DELETE FROM Resepti WHERE id = :id');
+    $query = DB::connection()->prepare('DELETE FROM Resepti WHERE id = :id RETURNING kayttaja_id');
     $query->execute(array('id' => $id));
-    return null;
+    $row = $query->fetch();
+    $this->kayttaja_id = $row['kayttaja_id'];
   }
 
   public static function showPersonal($kid) {
@@ -100,5 +101,12 @@ class Resepti extends BaseModel{
 
     }
     return $reseptit;
+  }
+
+  public function addRecipe() {
+    $query = DB::connection()->prepare('INSERT INTO Resepti (kayttaja_id, nimi, kategoria, kuvaus, ohje, valm_aika, annoksia, lisatty) VALUES (:kayttaja_id, :nimi, :kategoria, :kuvaus, :ohje, :valm_aika, :annoksia, CURRENT_DATE) RETURNING id');
+    $query->execute(array('kayttaja_id' => $this->kayttaja_id, 'nimi' => $this->nimi, 'kategoria' => $this->kategoria, 'kuvaus' => $this->kuvaus, 'ohje' => $this->ohje, 'valm_aika' => $this->valm_aika, 'annoksia' => $this->annoksia));
+    $row = $query->fetch();
+    $this->id = $row['id'];
   }
 }

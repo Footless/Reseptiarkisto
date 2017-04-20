@@ -48,8 +48,12 @@ $routes->get('/resepti/:id', function($id) {
   ReseptitController::show($id);
 });
 
-$routes->get('/lisaa-resepti/', function() {
+$routes->get('/resepti/lisaa-resepti/', function() {
   ReseptitController::getIngs();
+});
+
+$routes->post('/resepti/lisaa-resepti/', function() {
+  ReseptitController::addRecipe();
 });
 
 $routes->get('/resepti/:id/muokkaa/', function($id) {

@@ -15,10 +15,6 @@
       View::make('resepti.html');
     }
 
-    public static function lisaaResepti(){
-      View::make('lisaa_resepti.html');
-    }
-
     public static function sandbox(){
     $kayttajat = Resepti::showPersonal(1);
     // Kint-luokan dump-metodi tulostaa muuttujan arvon
