@@ -2,6 +2,10 @@
 
   class KayttajatController extends BaseController{
 
+    public static function index(){
+   	  View::make('home.html');
+    }
+
     public static function rekisteroidy(){
       View::make('kayttaja/rekisteroidy.html');
     }

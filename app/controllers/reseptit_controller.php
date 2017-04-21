@@ -62,7 +62,7 @@ class ReseptitController extends BaseController{
       'valm_aika' => $params['valm_aika'],
       'annoksia' => $params['annoksia'],
     ));
-    $resepti->lisaaResepti();
+    $id = $resepti->lisaaResepti();
     Redirect::to('/resepti/omat-reseptit/' . $resepti->kayttaja_id);
   }
 }
