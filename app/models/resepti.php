@@ -111,7 +111,10 @@ class Resepti extends BaseModel{
     $pgArray = self::to_pg_array($this->ohje);
     $query = DB::connection()->prepare('UPDATE Resepti SET ohje = :ohje WHERE id = :id');
     $query->execute(array('ohje' => $pgArray, 'id' => $this->id));
+    return $this->id;
   }
+
+  /* Stack Overflow copypasta */
 
   public function to_pg_array($set) {
     settype($set, 'array'); // can be called with a scalar or array
