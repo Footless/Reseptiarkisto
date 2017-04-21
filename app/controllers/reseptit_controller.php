@@ -58,7 +58,7 @@ class ReseptitController extends BaseController{
       'nimi' => $params['nimi'],
       'kategoria' => $params['kategoria'],
       'kuvaus' => $params['kuvaus'],
-      'ohje[]' => $params['ohjeet'],
+      'ohje' => $params['ohjeet'],
       'valm_aika' => $params['valm_aika'],
       'annoksia' => $params['annoksia'],
     ));

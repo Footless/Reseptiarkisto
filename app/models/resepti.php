@@ -108,5 +108,24 @@ class Resepti extends BaseModel{
     $query->execute(array('kayttaja_id' => $this->kayttaja_id, 'nimi' => $this->nimi, 'kategoria' => $this->kategoria, 'kuvaus' => $this->kuvaus, 'valm_aika' => $this->valm_aika, 'annoksia' => $this->annoksia));
     $row = $query->fetch();
     $this->id = $row['id'];
+    $pgArray = self::to_pg_array($this->ohje);
+    $query = DB::connection()->prepare('UPDATE Resepti SET ohje = :ohje WHERE id = :id');
+    $query->execute(array('ohje' => $pgArray, 'id' => $this->id));
+  }
+
+  public function to_pg_array($set) {
+    settype($set, 'array'); // can be called with a scalar or array
+    $result = array();
+    foreach ($set as $t) {
+        if (is_array($t)) {
+            $result[] = to_pg_array($t);
+        } else {
+            $t = str_replace('"', '\\"', $t); // escape double quote
+            if (! is_numeric($t)) // quote only non-numeric values
+                $t = '"' . $t . '"';
+            $result[] = $t;
+        }
+    }
+    return '{' . implode(",", $result) . '}'; // format
   }
 }

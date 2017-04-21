@@ -9,7 +9,7 @@
     public function kirjaudu() {
       $params = $_POST;
 
-      $kayttaja = Kayttaja::authenticate($params['kayttajanimi'], $params['salasana']);
+      $kayttaja = Kayttaja::todenna($params['kayttajanimi'], $params['salasana']);
 
       if (!$kayttaja) {
         Redirect::to('/', array('message' => 'Väärä salasana tai käyttäjätunnus', 'username' => $params['kayttajanimi']));
@@ -63,13 +63,13 @@
 
     public static function kaikki() {
       self::check_logged_in();
-      $kayttajat = Kayttaja::all();
+      $kayttajat = Kayttaja::kaikki();
       View::make('kayttaja/kayttajat.html', array('kayttajat' => $kayttajat));
     }
 
     public static function etsi($id) {
       self::check_logged_in();
-      $kayttaja = Kayttaja::find($id);
+      $kayttaja = Kayttaja::etsi($id);
       View::make('kayttaja/kayttaja.html', array('kayttaja' => $kayttaja));
     }
 
@@ -83,7 +83,7 @@
         'sukunimi' => $params['sukunimi'],
         'sposti' => $params['sposti']
       ));
-      $kayttaja->editOne();
+      $kayttaja->muokkaaYhta();
 
       Redirect::to('/kayttajat/' . $kayttaja->id, array('message' => 'Muutokset tallennettu'));
     }
@@ -105,9 +105,9 @@
       }
       foreach ($kayttajat as $kayttaja) {
         if ($kayttaja->delete == 1) {
-          $kayttaja->delete();
+          $kayttaja->poista();
         } else {
-          $kayttaja->edit();
+          $kayttaja->muokkaa();
         }
       }
       Redirect::to('/kayttajat/', array('message' => 'Muutokset tallennettu'));
