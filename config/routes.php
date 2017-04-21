@@ -23,19 +23,19 @@
   });
 
   $routes->get('/kayttajat/', function() {
-    KayttajatController::all();
+    KayttajatController::kaikki();
   });
 
   $routes->post('/kayttajat/', function() {
-    KayttajatController::kayttajatEdit();
+    KayttajatController::muokkaaKayttajia();
   });
 
   $routes->get('/kayttajat/:id', function($id) {
-    KayttajatController::find($id);
+    KayttajatController::etsi($id);
   });
 
   $routes->post('/kayttajat/edit/', function() {
-    KayttajatController::edit();
+    KayttajatController::muokkaa();
   });
 
   $routes->post('/kayttajat/kirjaudu-ulos/', function() {
@@ -45,27 +45,27 @@
 /* resepti kontrollerit */
 
 $routes->get('/resepti/:id', function($id) {
-  ReseptitController::show($id);
+  ReseptitController::nayta($id);
 });
 
 $routes->get('/resepti/lisaa-resepti/', function() {
-  ReseptitController::getIngs();
+  ReseptitController::haeRaaka_aineet();
 });
 
 $routes->post('/resepti/lisaa-resepti/', function() {
-  ReseptitController::addRecipe();
+  ReseptitController::lisaaResepti();
 });
 
 $routes->get('/resepti/:id/muokkaa/', function($id) {
-  ReseptitController::edit($id);
+  ReseptitController::muokkaa($id);
 });
 
 $routes->get('/resepti/:id/poista/', function($id) {
-  ReseptitController::deleteConfirm($id);
+  ReseptitController::poistonVarmistus($id);
 });
 
 $routes->post('/resepti/:id/poista/', function($id) {
-  ReseptitController::delete($id);
+  ReseptitController::poista($id);
 });
 
 $routes->get('/resepti/alkuruoat/', function() {
@@ -81,5 +81,5 @@ $routes->get('/resepti/jalkiruoat/', function() {
 });
 
 $routes->get('/resepti/omat-reseptit/:id', function($id) {
-  ReseptitController::showPersonal($id);
+  ReseptitController::naytaOmat($id);
 });

@@ -52,7 +52,7 @@
           'sposti' => $params['sposti']
         ));
 
-        $kayttaja->save();
+        $kayttaja->tallenna();
         Redirect::to('/', array('message' => 'Rekisteröityminen onnistui!'));
       } else if ($row) {
         Redirect::to('/kayttajat/rekisteroidy/', array('message' => 'Rekisteröityminen epäonnistui! Valitsemasi käyttäjänimi on jo käytössä.'));
@@ -61,19 +61,19 @@
       }
     }
 
-    public static function all() {
+    public static function kaikki() {
       self::check_logged_in();
       $kayttajat = Kayttaja::all();
       View::make('kayttaja/kayttajat.html', array('kayttajat' => $kayttajat));
     }
 
-    public static function find($id) {
+    public static function etsi($id) {
       self::check_logged_in();
       $kayttaja = Kayttaja::find($id);
       View::make('kayttaja/kayttaja.html', array('kayttaja' => $kayttaja));
     }
 
-    public function edit() {
+    public function muokkaa() {
       self::check_logged_in();
       $params = $_POST;
       $kayttaja = new Kayttaja(array(
@@ -88,7 +88,7 @@
       Redirect::to('/kayttajat/' . $kayttaja->id, array('message' => 'Muutokset tallennettu'));
     }
 
-    public function kayttajatEdit() {
+    public function muokkaaKayttajia() {
       self::check_logged_in();
       $id = $_POST['id'];
       $kayttajanimi = $_POST['kayttajanimi'];
@@ -119,7 +119,7 @@
       $kayttaja = new Kayttaja(array(
         'id' => $id
       ));
-      $kayttaja->logOut();
+      $kayttaja->kirjauduUlos();
 
       Redirect::to('/', array('message' => 'Olet kirjautunut ulos'));
     }

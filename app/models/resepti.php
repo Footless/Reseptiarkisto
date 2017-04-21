@@ -6,7 +6,7 @@ class Resepti extends BaseModel{
     parent::__construct($attributes);
   }
 
-  public static function all($i) {
+  public static function kaikki($i) {
     $query = DB::connection()->prepare('SELECT Resepti.id as id, kayttaja_id, nimi, kategoria, kuvaus, ohje, valm_aika, annoksia, kayttajanimi FROM Resepti LEFT JOIN Kayttaja ON Kayttaja.id=Resepti.kayttaja_id WHERE Resepti.kategoria= :kategoria');
     $query->execute(array('kategoria' => $i));
     $rows = $query->fetchAll();
@@ -29,7 +29,7 @@ class Resepti extends BaseModel{
     return $reseptit;
   }
 
-  public static function show($id){
+  public static function nayta($id){
     $query = DB::connection()->prepare('SELECT Resepti.id as id, kayttaja_id, nimi, kategoria, kuvaus, valm_aika, annoksia, kayttajanimi FROM Resepti JOIN Kayttaja ON Kayttaja.id=Resepti.kayttaja_id WHERE Resepti.id= :id LIMIT 1');
     $query->execute(array('id' => $id));
     $row = $query->fetch();
@@ -67,7 +67,7 @@ class Resepti extends BaseModel{
     return null;
     }
 
-  public static function getIngs() {
+  public static function haeRaaka_aineet() {
     $query = DB::connection()->prepare('SELECT nimi FROM Raaka_aineet');
     $query->execute();
     $rows = $query->fetchAll();
@@ -75,14 +75,14 @@ class Resepti extends BaseModel{
     return $rows;
   }
 
-  public function delete($id){
+  public function poista($id){
     $query = DB::connection()->prepare('DELETE FROM Resepti WHERE id = :id RETURNING kayttaja_id');
     $query->execute(array('id' => $id));
     $row = $query->fetch();
     $this->kayttaja_id = $row['kayttaja_id'];
   }
 
-  public static function showPersonal($kid) {
+  public static function naytaOmat($kid) {
     $query = DB::connection()->prepare('SELECT * FROM Resepti WHERE kayttaja_id= :kid');
     $query->execute(array('kid' => $kid));
     $rows = $query->fetchAll();
@@ -103,9 +103,9 @@ class Resepti extends BaseModel{
     return $reseptit;
   }
 
-  public function addRecipe() {
-    $query = DB::connection()->prepare('INSERT INTO Resepti (kayttaja_id, nimi, kategoria, kuvaus, ohje, valm_aika, annoksia, lisatty) VALUES (:kayttaja_id, :nimi, :kategoria, :kuvaus, :ohje, :valm_aika, :annoksia, CURRENT_DATE) RETURNING id');
-    $query->execute(array('kayttaja_id' => $this->kayttaja_id, 'nimi' => $this->nimi, 'kategoria' => $this->kategoria, 'kuvaus' => $this->kuvaus, 'ohje' => $this->ohje, 'valm_aika' => $this->valm_aika, 'annoksia' => $this->annoksia));
+  public function lisaaResepti() {
+    $query = DB::connection()->prepare('INSERT INTO Resepti (kayttaja_id, nimi, kategoria, kuvaus, valm_aika, annoksia, lisatty) VALUES (:kayttaja_id, :nimi, :kategoria, :kuvaus, :valm_aika, :annoksia, CURRENT_DATE) RETURNING id');
+    $query->execute(array('kayttaja_id' => $this->kayttaja_id, 'nimi' => $this->nimi, 'kategoria' => $this->kategoria, 'kuvaus' => $this->kuvaus, 'valm_aika' => $this->valm_aika, 'annoksia' => $this->annoksia));
     $row = $query->fetch();
     $this->id = $row['id'];
   }
