@@ -18,4 +18,12 @@
       }
     }
 
+    public static function check_if_admin(){
+      $user_id = $_SESSION['user'];
+      $user = Kayttaja::etsi($user_id);
+      if(!isset($_SESSION['user']) && !$kayttaja->admin){
+        Redirect::to('/', array('message' => 'Sinulla ei ole oikeuksia tälle sivulle!'));
+      }
+    }
+
   }

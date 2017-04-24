@@ -63,6 +63,10 @@ class ReseptitController extends BaseController{
       'annoksia' => $params['annoksia'],
     ));
     $id = $resepti->lisaaResepti();
+    $ainekset = new Ainekset(array(
+      'resepti_id' => $id,
+      
+    ));
     Redirect::to('/resepti/omat-reseptit/' . $resepti->kayttaja_id);
   }
 }

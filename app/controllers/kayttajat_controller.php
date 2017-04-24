@@ -67,6 +67,7 @@
 
     public static function kaikki() {
       self::check_logged_in();
+      self::check_if_admin();
       $kayttajat = Kayttaja::kaikki();
       View::make('kayttaja/kayttajat.html', array('kayttajat' => $kayttajat));
     }

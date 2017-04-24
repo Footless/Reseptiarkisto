@@ -2,26 +2,7 @@
 
 {% block content %}
 {% if user_logged_in and user_logged_in.id == reseptit.0.kayttaja_id or user_logged_in.admin %}
-    <div class="container">
-      <h3>Reseptit</h3>
-      <div class="row">
-        {% for resepti in reseptit %}
-        <div class="col-sm-4">
-          {% if loop.index is divisible by(2) %}
-          {{ include('resepti/reseptit_resepti_item.html') }}
-        </div>
-        <div class="col-sm-4">
-          {% elseif loop.index is divisible by(3) %}
-          {{ include('resepti/reseptit_resepti_item.html') }}
-        </div>
-        <div class="col-sm-4">
-          {% else %}
-          {{ include('resepti/reseptit_resepti_item.html') }}
-          {% endif %}
-        </div>
-        {% endfor %}
-      </div>
-  </div>
+    {{ include('resepti/resepti_listaus.html') }}
 {% elseif not user_logged_in %}
 <p>
   <a href="#" data-toggle="modal" data-target="#kirjauduModal">Kirjaudu sisään</a> nähdäksesi reseptisi.
