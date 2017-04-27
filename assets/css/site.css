@@ -123,3 +123,9 @@ button.room {
 td.hidden {
   visibility: hidden;
 }
+
+/* rekisteröityminen */
+
+span.left {
+  float: left;
+}
