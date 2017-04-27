@@ -52,6 +52,10 @@ $routes->get('/resepti/lisaa-resepti/', function() {
   ReseptitController::haeRaaka_aineet();
 });
 
+$routes->post('/resepti/lisaa-resepti/yksikot/', function() {
+  ReseptitController::haeYksikot();
+});
+
 $routes->post('/resepti/lisaa-resepti/', function() {
   ReseptitController::lisaaResepti();
 });

@@ -10,7 +10,8 @@ class ReseptitController extends BaseController{
   public static function nayta($id) {
     $resepti = Resepti::nayta($id);
     $ohjeet = Resepti::ohjeet($id);
-    View::make('resepti/resepti.html', array('resepti' => $resepti, 'ohjeet' => $ohjeet));
+    $ainekset = Resepti::ainekset($id);
+    View::make('resepti/resepti.html', array('resepti' => $resepti, 'ohjeet' => $ohjeet, 'ainekset' => $ainekset));
   }
 
   public static function haeRaaka_aineet() {
@@ -62,11 +63,37 @@ class ReseptitController extends BaseController{
       'valm_aika' => $params['valm_aika'],
       'annoksia' => $params['annoksia'],
     ));
-    $id = $resepti->lisaaResepti();
-    $ainekset = new Ainekset(array(
-      'resepti_id' => $id,
-      
-    ));
+    $resepti_id = $resepti->lisaaResepti();
+    $arrPituus = count($params['resepti_raaka_aineet']);
+    $raaka_aineet = array();
+    for ($i=0; $i < $arrPituus; $i++) {
+      if ($params['resepti_raaka_aineet'][$i] == '' || $params['resepti_maarat'][$i] == '') {
+        break;
+      }
+      $raaka_aineet[] = new Ainekset(array(
+        'resepti_id' => $resepti_id,
+        'raaka_aine_nimi' => $params['resepti_raaka_aineet'][$i],
+        'mittayksikko' => $params['mitta_yksikko'][$i],
+        'maara' => $params['resepti_maarat'][$i]
+      ));
+    }
+    foreach ($raaka_aineet as $raaka_aine) {
+      $raaka_aine->etsi_raaka_aine();
+      $raaka_aine->tallenna();
+    }
+
     Redirect::to('/resepti/omat-reseptit/' . $resepti->kayttaja_id);
+  }
+
+  public function haeYksikot() {
+    $params = $_POST;
+    $raaka_aine = new Raaka_aine(array(
+      'nimi' => $params['nimi']
+    ));
+
+    $json = $raaka_aine->haeYksikot();
+    if ($json) {
+      echo $json;
+    }
   }
 }

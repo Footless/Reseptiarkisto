@@ -56,6 +56,12 @@ h4 {
   padding-top: 10px;
 }
 
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
 /* resepti-panelit */
 
 .panel-body {
@@ -64,6 +70,12 @@ h4 {
 
 .panel-body h4 {
   margin: 3px 0 0 5px;
+}
+
+
+i.right {
+  float: right;
+
 }
 
 /* footer */
@@ -89,30 +101,6 @@ h4 {
 
 .footer_oma p {
   text-align: center;
-}
-
-/* reseptin nappuloiden lista */
-
-ul.recipe_bar {
-  list-style-type: none;
-  margin: 0;
-  padding: 5px 15px 5px 15px;
-  margin: 10px 15px 10px 10px;
-  overflow: hidden;
-  background-color: #5999ff;
-}
-
-ul.recipe_bar > li {
-  float: left;
-}
-
-ul.recipe_bar > li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 2px 5px 2px 5px;
-  margin: 0 50px 0 50px;
-  text-decoration: none;
 }
 
 /* resepti-sivu */

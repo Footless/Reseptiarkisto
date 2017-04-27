@@ -5,10 +5,11 @@
     <p>{{resepti.kuvaus}}</p>
   </div>
 
-  <div class="panel-footer">
-    {% if resepti.kayttajanimi %}
+  <div class="panel-footer clearfix">
+    {% if resepti.kayttajanimi and resepti.kayttajanimi != 'poistettu' %}
     <a href="#">{{resepti.kayttajanimi}}</a>
     {% endif %}
-     tiedot yms.<p> linkit</p></div>
+    <a href="#"><i class="fa fa-thumbs-o-up fa-2x room right" aria-hidden="true"></i></a>
+    </div>
 
 </div>

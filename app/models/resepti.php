@@ -67,6 +67,27 @@ class Resepti extends BaseModel{
     return null;
     }
 
+    public static function ainekset($id) {
+      $query = DB::connection()->prepare('SELECT * FROM Ainekset WHERE resepti_id = :id');
+      $query->execute(array('id' => $id));
+      $rows = $query->fetchAll();
+      $ainekset = array();
+
+      if($rows) {
+        foreach ($rows as $row) {
+            $ainekset[] = new Ainekset(array(
+              'resepti_id' => $row['resepti_id'],
+              'raaka_aine_id' => $row['raaka_aine_id'],
+              'raaka_aine_nimi' => $row['raaka_aine_nimi'],
+              'mittayksikko' => $row['mittayksikko'],
+              'maara' => $row['maara']
+            ));
+        }
+        return $ainekset;
+      }
+      return null;
+    }
+
   public static function haeRaaka_aineet() {
     $query = DB::connection()->prepare('SELECT nimi FROM Raaka_aineet');
     $query->execute();

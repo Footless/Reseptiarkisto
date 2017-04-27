@@ -6,10 +6,7 @@
     <form class="form-horizontal" action="{{base_path}}/resepti/lisaa-resepti/" method="post" enctype="multipart/form-data">
       <h4>Reseptin nimi</h4>
       <div class="form-group">
-        <div class="col-sm-1">
-
-        </div>
-        <div class="col-sm-6">
+        <div class="col-sm-7">
           <input class="form-control" id="nimi" type="text" placeholder="Nimi" name="nimi">
         </div>
         <div class="col-sm-5">
@@ -23,20 +20,19 @@
       </section>
       <div class="form-group">
         <div class="col-sm-6">
-          <input class="form-control" id="raaka_aine" type="text" placeholder="Raaka-aine" name="resepti_raaka_aineet[]">
+          <input class="form-control" id="raaka_aine" type="text" placeholder="raaka-aine" name="resepti_raaka_aineet[]">
         </div>
         <div class="col-sm-3">
           <input class="form-control" id="maara" type="text" placeholder="Määrä" name="resepti_maarat[]">
         </div>
         <div class="col-sm-2">
           <select class="form-control" id="mitta_yksikko" name="mitta_yksikko[]">
-            <option value="0">Mittayksikkö</option>
-            <option value="1">dl</option>
-            <option value="2">cl</option>
-            <option value="3">rkl</option>
-            <option value="4">tl</option>
-            <option value="5">grammaa</option>
-            <option value="6">kappaletta</option>
+            <option class="ra_option" value="dl">dl</option>
+            <option class="ra_option" value="cl">cl</option>
+            <option class="ra_option" value="rkl">rkl</option>
+            <option class="ra_option" value="tl">tl</option>
+            <option class="ra_option" value="gramma">gramma</option>
+            <option class="ra_option" value="kappaletta">kappaletta</option>
           </select>
         </div>
         <div class="col-sm-1">
@@ -73,7 +69,7 @@
         <div class="form-group">
           <h4>Ohjeet:</h4>
           <label for="ohjeet">Lisää ohjeet reseptillesi. Lisättyäsi yhden vaiheen ohjeen paina tallenna ja lisää seuraava vaihe.</label>
-          <textarea class="form-control" rows="10" id="ohje" name="ohjeet[]"></textarea>
+          <textarea class="form-control" rows="10" id="ohje"></textarea>
         </div>
       </div>
     </div>
@@ -111,7 +107,9 @@
   var raaka_aineet = Object.keys(data).map(function(k) { return data[k][0] });
   var input = document.getElementById("raaka_aine");
   new Awesomplete(input, {
-     list: raaka_aineet
+      list: raaka_aineet,
+      minChars: 4,
+	    maxItems: 30
   });
 
   function sulje(parentDiv) {

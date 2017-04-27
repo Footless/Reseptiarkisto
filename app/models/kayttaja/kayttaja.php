@@ -76,7 +76,9 @@ class Kayttaja extends BaseModel{
   }
 
   public function poista() {
-    $query = DB::connection()->prepare('UPDATE Kayttaja SET kayttajanimi = NULL, salasana = NULL, admin = FALSE, etunimi = NULL, sukunimi = NULL, sposti = NULL WHERE id = :id');
+    $query = DB::connection()->prepare('UPDATE Resepti SET kayttaja_id = 9  WHERE kayttaja_id = :id');
+    $query->execute(array('id' => $this->id));
+    $query = DB::connection()->prepare('DELETE FROM Kayttaja WHERE id = :id');
     $query->execute(array('id' => $this->id));
   }
 

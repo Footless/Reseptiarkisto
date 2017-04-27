@@ -25,7 +25,7 @@
         </thead>
         <tbody>
           {% for kayttaja in kayttajat %}
-          {% if kayttaja.kayttajanimi %}
+          {% if kayttaja.kayttajanimi and kayttaja.id != 9 %}
           <tr>
             <td class="hidden"><input class="form-control" name="id[]" id="id" type="text" value="{{kayttaja.id}}" /></td>
             <td>{{ kayttaja.id }}</td>
