@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="page-header">
+    <h2>Reseptiarkiston käyttäjät</h2>
+  </div>
+  {% if user_logged_in.admin %}
+    <div class="container">
+      {% if message %}
+      <div class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{message}}
+      </div>
+      {% endif %}
+      <form method="post" action="{{base_path}}/kayttajat/">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Käyttäjänimi</th>
+            <th>Admin-oikeudet</th>
+            <th>Poista</th>
+          </tr>
+          <tr>
+        </thead>
+        <tbody>
+          {% for kayttaja in kayttajat %}
+          {% if kayttaja.kayttajanimi and kayttaja.id != 9 %}
+          <tr>
+            <td class="hidden"><input class="form-control" name="id[]" id="id" type="text" value="{{kayttaja.id}}" /></td>
+            <td>{{ kayttaja.id }}</td>
+            <td class="hidden"><input class="form-control" name="kayttajanimi[]" id="kayttajanimi" type="text" value="{{kayttaja.kayttajanimi}}" /></td>
+            <td><a href="{{base_path}}/kayttajat/{{kayttaja.id}}">{{ kayttaja.kayttajanimi }}</a></td>
+            <td>
+            <select id="admin" class="form-control" name="admin[]">
+            {% if kayttaja.admin %}
+            <option value="1">True</option>
+            <option value="0">False</option>
+            {% else %}
+            <option value="0">False</option>
+            <option value="1">True</option>
+            {% endif %}
+            </td>
+            </select>
+            <td>
+              <select class="form-control" name="delete[]" id="delete">
+                <option value="0">Älä tee mitään</option>
+                <option value="1">Poista käyttäjä</option>
+              </select>
+            </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+      <button class="btn btn-primary room" type="submit">Tallenna</button>
+      <button class="btn btn-danger room" type="reset">Hylkää muutokset</button>
+      </form>
+  </div>
+  {% else %}
+  <div class="danger">
+    Sinulla ei ole oikeuksia tälle sivulle.
+  </div>
+{% endif %}
+{% endblock %}

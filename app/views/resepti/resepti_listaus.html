@@ -1,0 +1,14 @@
+<div class="container">
+  <h3>Reseptit</h3>
+  <div class="row">
+    {% for resepti in reseptit %}
+    <div class="col-sm-4">
+      {{ include('resepti/reseptit_resepti_item.html') }}
+    </div>
+    {% if loop.index is divisible by(3) %}
+  </div>
+  <div class="row">
+    {% endif %}
+    {% endfor %}
+    </div>
+</div>

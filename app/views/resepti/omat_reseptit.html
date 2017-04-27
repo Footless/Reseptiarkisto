@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if user_logged_in and user_logged_in.id == reseptit.0.kayttaja_id or user_logged_in.admin %}
+    {{ include('resepti/resepti_listaus.html') }}
+{% elseif not user_logged_in %}
+<p>
+  <a href="#" data-toggle="modal" data-target="#kirjauduModal">Kirjaudu sisään</a> nähdäksesi reseptisi.
+</p>
+{% elseif not reseptit %}
+  <p>
+    Sinulla ei ole reseptejä.
+  </p>
+{% else %}
+<p>
+  Sinulla ei ole oikeuksia tälle sivulle.
+</p>
+{% endif %}
+<!-- kirjautumisen modal -->
+{{ include('kayttaja/login.html') }}
+<!-- kirjautumisen modal loppuu -->
+{% endblock %}

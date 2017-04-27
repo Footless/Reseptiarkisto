@@ -7,8 +7,17 @@
    	  View::make('home.html');
     }
 
-    public static function sandbox(){
-      // Testaa koodiasi täällä
-      echo 'Hello World!';
+    public static function reseptit(){
+      View::make('reseptit.html');
     }
+
+    public static function resepti(){
+      View::make('resepti.html');
+    }
+
+    public static function sandbox(){
+    $kayttajat = Resepti::showPersonal(1);
+    // Kint-luokan dump-metodi tulostaa muuttujan arvon
+    Kint::dump($kayttajat);
+  }
   }

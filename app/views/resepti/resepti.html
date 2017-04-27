@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-5">
+      {% if user_logged_in.admin or user_logged_in.id == resepti.kayttaja_id %}
+      <a href="{{base_path}}/resepti/{{resepti.id}}/poista/"><i class="fa fa-times fa-2x redicon room" aria-hidden="true"></i> Poista resepti      </a>
+      <a href="{{base_path}}/resepti/{{resepti.id}}/muokkaa/"><i class="fa fa-pencil fa-2x redicon room" aria-hidden="true"></i> Muokkaa reseptiä</a>
+      {% elseif user_logged_in %}
+      <a href="#"><i class="fa fa-thumbs-o-up fa-2x room" aria-hidden="true"></i></a>
+      {% endif %}
+      <h3>{{resepti.nimi}}</h3>
+      {% if resepti.kayttajanimi != 'poistettu' %}
+      <h4>Tekijä: <a href="#">{{resepti.kayttajanimi}}</a></h4>
+      {% endif %}
+      <p>
+        {{resepti.kuvaus}}
+      </p>
+    </div>
+    <div class="col-sm-7">
+      <img src="{{base_path}}/assets/img/lihapullat.jpg" class="img-responsive" />
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <h3>Raaka-aineet</h3>
+    <span class="recipe_info">{{resepti.valm_aika}} min <i class="fa fa-clock-o" aria-hidden="true"></i> Annoksia: {{resepti.annoksia}}</span>
+  </div>
+  <div class="row">
+    <div class="col-sm-7">
+      <ul>
+        {% for aines in ainekset %}
+        <li>{{aines.raaka_aine_nimi}} : {{aines.maara|round(1,'floor')}} {{aines.mittayksikko}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-sm-5">
+      <h4>Ravintoarvot</h4>
+      <ul>
+        <li>Kalorit: 1000 kcal</li>
+        <li>Proteiini: 65gr</li>
+        <li>Hiilihydraatit: 45gr</li>
+        <li>Rasva: 34gr</li>
+        <li>Kuidut: 25gr</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Ohjeet</h3>
+  <div class="row">
+    <div class="col-sm-12">
+      <ol>
+        {% for o in ohjeet %}
+        <li> {{o.ohje}}</li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+</div>
+{% endblock %}

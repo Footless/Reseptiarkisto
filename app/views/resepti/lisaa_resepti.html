@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Lisää resepti</h3>
+  <div class="container">
+    <form class="form-horizontal" action="{{base_path}}/resepti/lisaa-resepti/" method="post" enctype="multipart/form-data">
+      <h4>Reseptin nimi</h4>
+      <div class="form-group">
+        <div class="col-sm-7">
+          <input class="form-control" id="nimi" type="text" placeholder="Nimi" name="nimi">
+        </div>
+        <div class="col-sm-5">
+
+        </div>
+      </div>
+      <h4>Raaka-aineet</h4>
+      <section id="raaka_aine_valinnat">
+        <input class="hidden" type="text" name="kayttaja_id" value="{{user_logged_in.id}}">
+      </section>
+      <div class="form-group">
+        <div class="col-sm-6">
+          <input class="form-control" id="raaka_aine" type="text" placeholder="raaka-aine" name="resepti_raaka_aineet[]">
+        </div>
+        <div class="col-sm-3">
+          <input class="form-control" id="maara" type="number" placeholder="Määrä" name="resepti_maarat[]">
+        </div>
+        <div class="col-sm-2">
+          <select class="form-control" id="mitta_yksikko" name="mitta_yksikko[]">
+            <option class="ra_option" value="dl">dl</option>
+            <option class="ra_option" value="cl">cl</option>
+            <option class="ra_option" value="rkl">rkl</option>
+            <option class="ra_option" value="tl">tl</option>
+            <option class="ra_option" value="gramma">gramma</option>
+            <option class="ra_option" value="kappaletta">kappaletta</option>
+          </select>
+        </div>
+        <div class="col-sm-1">
+
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <button type="button" class="btn btn-primary" onClick="teeUusiRaaka_aine()">Lisää raaka-aine</button>
+        <hr />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <h5>Valitse kuva reseptillesi (valinnainen):</h5>
+          <input type="file" name="fileToUpload" id="fileToUpload">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="kuvaus">Kuvaus</label>
+          <textarea class="form-control" rows="5" id="kuvaus" name="kuvaus"></textarea>
+        </div>
+      </div>
+    </div>
+    <section id="ohjeet">
+
+    </section>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <h4>Ohjeet:</h4>
+          <label for="ohjeet">Lisää ohjeet reseptillesi. Lisättyäsi yhden vaiheen ohjeen paina tallenna ja lisää seuraava vaihe.</label>
+          <textarea class="form-control" rows="5" id="ohje"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <button type="button" class="btn btn-primary" onclick="teeUusiOhje()">Tallenna</button>
+      </div>
+    </div>
+    <hr />
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="valm_aika">Valmistusaika: </label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="valm_aika" placeholder="Kauanko valmistaminen kestää?" name="valm_aika">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="annoksia">Annoksia: </label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="annoksia" placeholder="Montako annosta reseptistä tulee?" name="annoksia">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="valitse_kategoria">Valitse kategoria</label>
+      <select class="form-control" id="valitse_kategoria" name="kategoria">
+        <<option value="1">Alkuruoka tai naposteltava</option>
+        <<option value="2">Pääruoka</option>
+        <<option value="3">Jälkiruoka tai leivonnainen</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Lisää resepti</button>
+  </form>
+  </div>
+  <script>
+  var data = {{raaka_aineet|json_encode|raw}};
+  var raaka_aineet = Object.keys(data).map(function(k) { return data[k][0] });
+  var input = document.getElementById("raaka_aine");
+  new Awesomplete(input, {
+      list: raaka_aineet,
+      minChars: 3,
+	    maxItems: 30
+  });
+
+  function sulje(parentDiv) {
+    parentDiv.remove();
+  }
+  </script>
+{% endblock %}
