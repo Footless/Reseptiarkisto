@@ -6,6 +6,28 @@ class Resepti extends BaseModel{
     parent::__construct($attributes);
   }
 
+  public static function kaikkiReseptit() {
+    $query = DB::connection()->prepare('SELECT Resepti.id as id, kayttaja_id, nimi, kategoria, kuvaus, ohje, valm_aika, annoksia, kayttajanimi FROM Resepti LEFT JOIN Kayttaja ON Kayttaja.id=Resepti.kayttaja_id');
+    $query->execute();
+    $rows = $query->fetchAll();
+
+    foreach ($rows as $row) {
+      $reseptit[] = new Resepti(array(
+        'id' => $row['id'],
+        'kayttaja_id' => $row['kayttaja_id'],
+        'nimi' => $row['nimi'],
+        'kategoria' => $row['kategoria'],
+        'kuvaus' => $row['kuvaus'],
+        'ohje' => $row['ohje'],
+        'valm_aika' => $row['valm_aika'],
+        'annoksia' => $row['annoksia'],
+        'kayttajanimi' => $row['kayttajanimi']
+      ));
+
+    }
+    return $reseptit;
+  }
+
   public static function kaikki($i) {
     $query = DB::connection()->prepare('SELECT Resepti.id as id, kayttaja_id, nimi, kategoria, kuvaus, ohje, valm_aika, annoksia, kayttajanimi FROM Resepti LEFT JOIN Kayttaja ON Kayttaja.id=Resepti.kayttaja_id WHERE Resepti.kategoria= :kategoria');
     $query->execute(array('kategoria' => $i));

@@ -3,7 +3,8 @@
   class KayttajatController extends BaseController{
 
     public static function index(){
-   	  View::make('home.html');
+      $reseptit = Resepti::kaikkiReseptit();
+   	  View::make('home.html', array('reseptit' => $reseptit));
     }
 
     public static function rekisteroidy(){
