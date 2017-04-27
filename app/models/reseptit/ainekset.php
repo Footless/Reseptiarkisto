@@ -22,4 +22,9 @@ class Ainekset extends BaseModel{
     }
     return $this->raaka_aine_id;
   }
+
+  public static function poista($id) {
+    $query = DB::connection()->prepare('DELETE FROM Ainekset WHERE resepti_id = :id');
+    $query->execute(array('id' => $id));
+  }
 }

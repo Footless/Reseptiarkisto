@@ -14,7 +14,6 @@
         </div>
       </div>
       <h4>Raaka-aineet</h4>
-      <div class="hidden" name="kayttaja_id" value="{{user_logged_in.id}}"></div>
       <section id="raaka_aine_valinnat">
         <input class="hidden" type="text" name="kayttaja_id" value="{{user_logged_in.id}}">
       </section>
@@ -23,7 +22,7 @@
           <input class="form-control" id="raaka_aine" type="text" placeholder="raaka-aine" name="resepti_raaka_aineet[]">
         </div>
         <div class="col-sm-3">
-          <input class="form-control" id="maara" type="text" placeholder="Määrä" name="resepti_maarat[]">
+          <input class="form-control" id="maara" type="number" placeholder="Määrä" name="resepti_maarat[]">
         </div>
         <div class="col-sm-2">
           <select class="form-control" id="mitta_yksikko" name="mitta_yksikko[]">
@@ -57,7 +56,7 @@
       <div class="col-sm-12">
         <div class="form-group">
           <label for="kuvaus">Kuvaus</label>
-          <textarea class="form-control" rows="10" id="kuvaus" name="kuvaus"></textarea>
+          <textarea class="form-control" rows="5" id="kuvaus" name="kuvaus"></textarea>
         </div>
       </div>
     </div>
@@ -69,7 +68,7 @@
         <div class="form-group">
           <h4>Ohjeet:</h4>
           <label for="ohjeet">Lisää ohjeet reseptillesi. Lisättyäsi yhden vaiheen ohjeen paina tallenna ja lisää seuraava vaihe.</label>
-          <textarea class="form-control" rows="10" id="ohje"></textarea>
+          <textarea class="form-control" rows="5" id="ohje"></textarea>
         </div>
       </div>
     </div>
@@ -108,7 +107,7 @@
   var input = document.getElementById("raaka_aine");
   new Awesomplete(input, {
       list: raaka_aineet,
-      minChars: 4,
+      minChars: 3,
 	    maxItems: 30
   });
 

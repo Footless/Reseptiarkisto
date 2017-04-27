@@ -64,6 +64,10 @@ $routes->get('/resepti/:id/muokkaa/', function($id) {
   ReseptitController::muokkaa($id);
 });
 
+$routes->post('/resepti/:id/muokkaa/', function($id) {
+  ReseptitController::tallennaMuokkaukset($id);
+});
+
 $routes->get('/resepti/:id/poista/', function($id) {
   ReseptitController::poistonVarmistus($id);
 });

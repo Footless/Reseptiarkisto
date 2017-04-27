@@ -18,7 +18,7 @@ function teeUusiRaaka_aine() {
 
 function teeUusiOhje() {
   var ohjeTarget = document.getElementById("ohjeet");
-  var x=$('<div class="form-group"><label class="control-label col-sm-1" for="ohje">'+ohjeIndex+'.</label><div class="col-sm-11"><textarea class="form-control" rows="10" name="ohjeet[]">'+document.getElementById("ohje").value+'</textarea></div></div>');
+  var x=$('<div class="form-group"><label class="control-label col-sm-1" for="ohje">'+ohjeIndex+'.</label><div class="col-sm-11"><textarea class="form-control" name="ohjeet[]">'+document.getElementById("ohje").value+'</textarea></div></div>');
   $(ohjeTarget).append(x);
   ohjeIndex++;
   document.getElementById("ohje").value = "";

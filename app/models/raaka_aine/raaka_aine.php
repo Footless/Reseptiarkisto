@@ -21,5 +21,4 @@ class Raaka_aine extends BaseModel{
       return null;
     }
   }
-
 }

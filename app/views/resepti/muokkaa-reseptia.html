@@ -3,27 +3,51 @@
 {% block content %}
 <h3>Lisää resepti</h3>
   <div class="container">
-    <form class="form-horizontal" action="{{base_path}}/lisaa-resepti/" method="post" enctype="multipart/form-data">
-      <h4>Raaka-aineet</h4>
-      <div id="raaka_aine_valinnat">
+    <form class="form-horizontal" action="{{base_path}}/resepti/{{resepti.id}}/muokkaa/" method="post" enctype="multipart/form-data">
+      <h4>Reseptin nimi</h4>
+      <div class="form-group">
+        <div class="col-sm-7">
+          <input class="form-control" id="nimi" type="text" value="{{resepti.nimi}}" name="nimi">
+        </div>
+        <div class="col-sm-5">
 
+        </div>
       </div>
+      <h4>Raaka-aineet</h4>
+      <section id="raaka_aine_valinnat">
+        <input class="hidden" type="text" name="kayttaja_id" value="{{user_logged_in.id}}">
+          {% for aines in ainekset %}
+          <div class="form-group"  id="aines{{loop.index}}">
+          <div class="col-sm-6">
+            <input class="form-control" type="text" name="resepti_raaka_aineet[]" value="{{aines.raaka_aine_nimi}}">
+          </div>
+          <div class="col-sm-3">
+            <input class="form-control" type="number" name="resepti_maarat[]" value="{{aines.maara|round(1, 'floor')}}">
+          </div>
+          <div class="col-sm-2">
+            <input class="form-control" type="text" name="mitta_yksikko[]" value="{{aines.mittayksikko}}">
+          </div>
+          <div class="col-sm-1">
+            <a onclick="sulje(aines{{loop.index}})" class="sulje"><i class="fa fa-times fa-2x redicon" aria-hidden="true"></i></a>
+          </div>
+          </div>
+          {% endfor %}
+      </section>
       <div class="form-group">
         <div class="col-sm-6">
-          <input class="form-control" id="raaka_aine" type="text" placeholder="Raaka-aine" name="resepti_raaka_aineet[]">
+          <input class="form-control" id="raaka_aine" type="text" placeholder="raaka-aine" name="resepti_raaka_aineet[]">
         </div>
         <div class="col-sm-3">
-          <input class="form-control" id="maara" type="text" placeholder="Määrä" name="resepti_maarat[]">
+          <input class="form-control" id="maara" type="number" placeholder="Määrä" name="resepti_maarat[]">
         </div>
         <div class="col-sm-2">
           <select class="form-control" id="mitta_yksikko" name="mitta_yksikko[]">
-            <option value="0">Mittayksikkö</option>
-            <option value="1">dl</option>
-            <option value="2">cl</option>
-            <option value="3">rkl</option>
-            <option value="4">tl</option>
-            <option value="5">grammaa</option>
-            <option value="6">kappaletta</option>
+            <option class="ra_option" value="dl">dl</option>
+            <option class="ra_option" value="cl">cl</option>
+            <option class="ra_option" value="rkl">rkl</option>
+            <option class="ra_option" value="tl">tl</option>
+            <option class="ra_option" value="gramma">gramma</option>
+            <option class="ra_option" value="kappaletta">kappaletta</option>
           </select>
         </div>
         <div class="col-sm-1">
@@ -32,7 +56,7 @@
       </div>
     <div class="row">
       <div class="col-sm-12">
-        <button type="button" class="btn btn-default" onClick="test()">Lisää raaka-aine</button>
+        <button type="button" class="btn btn-primary" onClick="teeUusiRaaka_aine()">Lisää raaka-aine</button>
         <hr />
       </div>
     </div>
@@ -48,39 +72,58 @@
       <div class="col-sm-12">
         <div class="form-group">
           <label for="kuvaus">Kuvaus</label>
-          <textarea class="form-control" rows="10" id="kuvaus" name="kuvaus"></textarea>
+          <textarea class="form-control" rows="5" id="kuvaus" name="kuvaus">{{resepti.kuvaus}}</textarea>
+        </div>
+      </div>
+    </div>
+    <section id="ohjeet">
+      {% for ohje in ohjeet %}
+      <div class="form-group">
+        <label class="control-label col-sm-1" for="ohje">{{loop.index}}.</label>
+        <div class="col-sm-11">
+        <textarea class="form-control" name="ohjeet[]">{{ohje.ohje}}</textarea>
+      </div>
+    </div>
+
+      {% endfor %}
+    </section>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <h4>Ohjeet:</h4>
+          <label for="ohjeet">Lisää ohjeet reseptillesi. Lisättyäsi yhden vaiheen ohjeen paina tallenna ja lisää seuraava vaihe.</label>
+          <textarea class="form-control" rows="5" id="ohje"></textarea>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <div class="form-group">
-          <label for="ohjeet">Ohjeet:</label>
-          <textarea class="form-control" rows="10" id="ohjeet" name="ohjeet"></textarea>
-        </div>
+        <button type="button" class="btn btn-primary" onclick="teeUusiOhje()">Tallenna</button>
       </div>
     </div>
+    <hr />
     <div class="form-group">
       <label class="control-label col-sm-2" for="valm_aika">Valmistusaika: </label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="valm_aika" placeholder="Kauanko valmistaminen kestää?" name="valm_aika">
+        <input type="text" class="form-control" id="valm_aika" value="{{resepti.valm_aika}}" name="valm_aika">
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="annoksia">Annoksia: </label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="annoksia" placeholder="Montako annosta reseptistä tulee?" name="annoksia">
+        <input type="text" class="form-control" id="annoksia" value="{{resepti.annoksia}}" name="annoksia">
       </div>
     </div>
     <div class="form-group">
       <label for="valitse_kategoria">Valitse kategoria</label>
-      <select class="form-control" id="valitse_kategoria">
+      <select class="form-control" id="valitse_kategoria" name="kategoria">
         <<option value="1">Alkuruoka tai naposteltava</option>
         <<option value="2">Pääruoka</option>
         <<option value="3">Jälkiruoka tai leivonnainen</option>
       </select>
     </div>
-    <button type="button" class="btn btn-primary">Lisää resepti</button>
+    <button type="submit" class="btn btn-primary room">Tallenna muutokset</button>
+    <button class="btn btn-danger room" type="reset">Hylkää muutokset</button>
   </form>
   </div>
   <script>
@@ -88,7 +131,9 @@
   var raaka_aineet = Object.keys(data).map(function(k) { return data[k][0] });
   var input = document.getElementById("raaka_aine");
   new Awesomplete(input, {
-     list: raaka_aineet
+      list: raaka_aineet,
+      minChars: 3,
+	    maxItems: 30
   });
 
   function sulje(parentDiv) {

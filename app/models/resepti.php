@@ -135,6 +135,12 @@ class Resepti extends BaseModel{
     return $this->id;
   }
 
+  public function muokkaa($id) {
+    $pgArray = self::to_pg_array($this->ohje);
+    $query = DB::connection()->prepare('UPDATE Resepti SET nimi = :nimi, kategoria = :kategoria, kuvaus = :kuvaus, valm_aika = :valm_aika, annoksia = :annoksia, ohje = :ohje WHERE id = :id');
+    $query->execute(array('nimi' => $this->nimi, 'kategoria' => $this->kategoria, 'kuvaus' => $this->kuvaus, 'valm_aika' => $this->valm_aika, 'annoksia' => $this->annoksia, 'id' => $id, 'ohje' => $pgArray));
+  }
+
   /* Stack Overflow copypasta */
 
   public function to_pg_array($set) {
