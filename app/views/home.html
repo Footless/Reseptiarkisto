@@ -11,19 +11,30 @@
         {{message}}
       </div>
       {% endif %}
-
+      {% if error %}
+      <div class="alert alert-warning alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{error}}
+      </div>
+      {% endif %}
       <div class="row">
         <div class="col-sm-4">
-          <h3>Suosituimmat reseptit:</h3>
-          {% for resepti in reseptit %}
+          <h3>Suosituimmat reseptit</h3>
+          {% for resepti in suosituimmat %}
           {{ include('resepti/reseptit_resepti_item.html') }}
           {% endfor %}
         </div>
         <div class="col-sm-4">
           <h3>Uusimmat reseptit</h3>
+          {% for resepti in uusimmat %}
+          {{ include('resepti/reseptit_resepti_item.html') }}
+          {% endfor %}
         </div>
         <div class="col-sm-4">
-          <h3>Nousevat</h3>
+          <h3>Kaikki reseptit</h3>
+          {% for resepti in reseptit %}
+          {{ include('resepti/reseptit_resepti_item.html') }}
+          {% endfor %}
         </div>
       </div>
   </div>

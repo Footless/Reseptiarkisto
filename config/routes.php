@@ -42,6 +42,14 @@
     KayttajatController::kirjauduUlos();
   });
 
+  $routes->post('/kayttaja/lisaaSuosikki/', function() {
+    KayttajatController::lisaaSuosikki();
+  });
+
+  $routes->post('/kayttaja/poistaSuosikki/', function() {
+    KayttajatController::poistaSuosikki();
+  });
+
 /* resepti kontrollerit */
 
 $routes->get('/resepti/:id', function($id) {
@@ -90,4 +98,8 @@ $routes->get('/resepti/jalkiruoat/', function() {
 
 $routes->get('/resepti/omat-reseptit/:id', function($id) {
   ReseptitController::naytaOmat($id);
+});
+
+$routes->get('/kuva/:id', function($id) {
+  ReseptitController::naytaKuva($id);
 });

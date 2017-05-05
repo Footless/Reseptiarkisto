@@ -94,4 +94,21 @@ class Kayttaja extends BaseModel{
     }
     session_destroy();
   }
+
+  public static function haeSuosikit($id) {
+    $query = DB::connection()->prepare('SELECT r.id FROM Suosikit s, Resepti r WHERE s.kayttaja_id = :id AND s.resepti_id = r.id');
+    $query->execute(array('id' => $id));
+    $rows = $query->fetchAll();
+    return json_encode($rows);
+  }
+
+  public function lisaaSuosikki($id, $user_id) {
+    $query = DB::connection()->prepare('INSERT INTO Suosikit values(:kayttaja_id, :resepti_id)');
+    $query->execute(array('kayttaja_id' => $user_id, 'resepti_id' => $id));
+  }
+
+  public function poistaSuosikki($id, $user_id) {
+    $query = DB::connection()->prepare('DELETE FROM Suosikit WHERE kayttaja_id = :kayttaja_id AND resepti_id = :resepti_id');
+    $query->execute(array('kayttaja_id' => $user_id, 'resepti_id' => $id));
+  }
 }

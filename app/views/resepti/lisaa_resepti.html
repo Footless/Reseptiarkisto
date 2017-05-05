@@ -3,19 +3,46 @@
 {% block content %}
 <h3>Lisää resepti</h3>
   <div class="container">
+    {% if errors %}
+    <div class="alert alert-danger alert-dismissable">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <ul>
+        {% for error in errors %}
+        <li>{{error.0}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
     <form class="form-horizontal" action="{{base_path}}/resepti/lisaa-resepti/" method="post" enctype="multipart/form-data">
       <h4>Reseptin nimi</h4>
       <div class="form-group">
         <div class="col-sm-7">
-          <input class="form-control" id="nimi" type="text" placeholder="Nimi" name="nimi">
+          <input class="form-control" id="nimi" type="text" placeholder="Nimi" name="nimi" value="{{syote.nimi}}">
         </div>
         <div class="col-sm-5">
 
         </div>
       </div>
+      <input class="hidden" type="text" name="kayttaja_id" value="{{user_logged_in.id}}">
       <h4>Raaka-aineet</h4>
       <section id="raaka_aine_valinnat">
-        <input class="hidden" type="text" name="kayttaja_id" value="{{user_logged_in.id}}">
+        {% for ra in syote.raaka_aineet %}
+        <div class="form-group" id="syotera{{loop.index}}">
+          <div class="col-sm-6">
+            <input class="form-control" type="text" name="resepti_raaka_aineet[]" value="{{ra.raaka_aine_nimi}}" required />
+          </div>
+          <div class="col-sm-3">
+            <input class="form-control" type="text" value="{{ra.maara}}" name="resepti_maarat[]" required />
+          </div>
+          <div class="col-sm-2">
+            <input class="form-control hidden" type="text" name="mitta_yksikko[]" value="{{ra.mittayksikko}}" />
+            <input class="form-control" type="text" value="{{ra.mittayksikko}}" disabled />
+          </div>
+          <div class="col-sm-1">
+            <a onclick="sulje(syotera{{loop.index}})" class="sulje"><i class="fa fa-times fa-2x redicon" aria-hidden="true"></i></a>
+          </div>
+      </div>
+        {% endfor %}
       </section>
       <div class="form-group">
         <div class="col-sm-6">
@@ -48,7 +75,7 @@
       <div class="col-sm-12">
         <div class="form-group">
           <h5>Valitse kuva reseptillesi (valinnainen):</h5>
-          <input type="file" name="fileToUpload" id="fileToUpload">
+          <input type="file" name="kuva" id="kuva">
         </div>
       </div>
     </div>
@@ -56,19 +83,28 @@
       <div class="col-sm-12">
         <div class="form-group">
           <label for="kuvaus">Kuvaus</label>
-          <textarea class="form-control" rows="5" id="kuvaus" name="kuvaus"></textarea>
+          <textarea class="form-control" rows="5" id="kuvaus" name="kuvaus">{{syote.kuvaus}}</textarea>
         </div>
       </div>
     </div>
     <section id="ohjeet">
-
+      {% for ohje in syote.ohjeet %}
+      {% if ohje|length > 0 %}
+      <div class="form-group">
+        <label class="control-label col-sm-1" for="ohje">{{loop.index}}.</label>
+        <div class="col-sm-11">
+          <textarea class="form-control" name="ohjeet[]">{{ohje}}</textarea>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
     </section>
     <div class="row">
       <div class="col-sm-12">
         <div class="form-group">
           <h4>Ohjeet:</h4>
           <label for="ohjeet">Lisää ohjeet reseptillesi. Lisättyäsi yhden vaiheen ohjeen paina tallenna ja lisää seuraava vaihe.</label>
-          <textarea class="form-control" rows="5" id="ohje"></textarea>
+          <textarea class="form-control" rows="5" id="ohje" name="ohjeet[]"></textarea>
         </div>
       </div>
     </div>
@@ -81,13 +117,13 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="valm_aika">Valmistusaika: </label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="valm_aika" placeholder="Kauanko valmistaminen kestää?" name="valm_aika">
+        <input type="text" class="form-control" id="valm_aika" placeholder="Kauanko valmistaminen kestää?" name="valm_aika" value="{{syote.valm_aika}}">
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="annoksia">Annoksia: </label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="annoksia" placeholder="Montako annosta reseptistä tulee?" name="annoksia">
+        <input type="text" class="form-control" id="annoksia" placeholder="Montako annosta reseptistä tulee?" name="annoksia" value="{{syote.annoksia}}">
       </div>
     </div>
     <div class="form-group">

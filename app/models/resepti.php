@@ -1,6 +1,6 @@
 <?php
 class Resepti extends BaseModel{
-  public $id, $kayttaja_id, $nimi, $kategoria, $kuvaus, $ohje, $valm_aika, $annoksia, $kayttajanimi;
+  public $id, $kayttaja_id, $nimi, $kategoria, $kuvaus, $ohje, $valm_aika, $annoksia, $kayttajanimi, $kuva;
 
   public function __construct($attributes){
     parent::__construct($attributes);
@@ -24,6 +24,39 @@ class Resepti extends BaseModel{
         'kayttajanimi' => $row['kayttajanimi']
       ));
 
+    }
+    return $reseptit;
+  }
+
+  public static function uusimmatReseptit() {
+    $query = DB::connection()->prepare('SELECT Resepti.id as id, nimi, kuvaus, kayttajanimi, lisatty FROM Resepti LEFT JOIN Kayttaja ON Kayttaja.id=Resepti.kayttaja_id ORDER BY lisatty DESC');
+    $query->execute();
+    $rows = $query->fetchAll();
+
+    foreach ($rows as $row) {
+      $reseptit[] = new Resepti(array(
+        'id' => $row['id'],
+        'nimi' => $row['nimi'],
+        'kuvaus' => $row['kuvaus'],
+        'kayttajanimi' => $row['kayttajanimi']
+      ));
+
+    }
+    return $reseptit;
+  }
+
+  public static function suosituimmat() {
+    $query = DB::connection()->prepare('SELECT s.resepti_id, count(*) AS montako, r.nimi, r.kuvaus, k.kayttajanimi FROM suosikit s LEFT JOIN resepti r ON r.id = s.resepti_id LEFT JOIN kayttaja k ON k.id=r.kayttaja_id GROUP BY s.resepti_id, r.nimi, r.kuvaus, k.kayttajanimi ORDER BY montako DESC LIMIT 20');
+    $query->execute();
+    $rows = $query->fetchAll();
+
+    foreach ($rows as $row) {
+      $reseptit[] = new Resepti(array(
+        'id' => $row['resepti_id'],
+        'nimi' => $row['nimi'],
+        'kuvaus' => $row['kuvaus'],
+        'kayttajanimi' => $row['kayttajanimi']
+      ));
     }
     return $reseptit;
   }
@@ -108,7 +141,60 @@ class Resepti extends BaseModel{
         return $ainekset;
       }
       return null;
+  }
+
+  public static function haeMakrot($aines) {
+    $raaka_aine = new Raaka_aine(array(
+        'id' => $aines->raaka_aine_id,
+        'nimi' => $aines->raaka_aine_nimi
+      ));
+    $raaka_aine->haeMakrot();
+
+    return $raaka_aine;
+  }
+
+  public static function laskeRavintoarvot($id) {
+    $raaka_aineet = array();
+    $ainekset = self::ainekset($id);
+    if ($ainekset) {
+      foreach ($ainekset as $aines) {
+        $raaka_aine = self::haeMakrot($aines);
+        if ($aines->mittayksikko != 'gramma') {
+          $query = DB::connection()->prepare('SELECT lyhenne FROM Yksikko_muunnokset WHERE kuvaus = :mittayksikko');
+          $query->execute(array('mittayksikko' => $aines->mittayksikko));
+          $row = $query->fetch();
+          $lyhenne = $row['lyhenne'];
+          $query = DB::connection()->prepare('SELECT kerroin FROM yksikot WHERE raaka_aine_id = :raaka_aine_id AND lyhenne = :mittayksikko');
+          $query->execute(array('raaka_aine_id' => $aines->raaka_aine_id, 'mittayksikko' => $lyhenne));
+          $row = $query->fetch();
+          $kokonaismaara = $row['kerroin'] * $aines->maara;
+        } else {
+          $kokonaismaara = $aines->maara;
+        }
+        $raaka_aine->maara = $kokonaismaara;
+        $raaka_aineet[] = $raaka_aine;
+      }
     }
+
+    $makrot = new Makrot(array(
+        'energia' => 0,
+        'rasva' => 0,
+        'proteiini' => 0,
+        'kuidut' => 0,
+        'hiilarit' => 0
+    ));
+    if($raaka_aineet) {
+      foreach ($raaka_aineet as $ra) {
+        $makrot->energia = $makrot->energia + ($ra->maara * $ra->energia);
+        $makrot->rasva = $makrot->rasva + ($ra->maara * $ra->rasva);
+        $makrot->proteiini = $makrot->proteiini + ($ra->maara * $ra->proteiini);
+        $makrot->kuidut = $makrot->kuidut + ($ra->maara * $ra->proteiini);
+        $makrot->hiilarit = $makrot->hiilarit + ($ra->maara * $ra->hiilarit);
+      }
+    }
+
+    return $makrot;
+  }
 
   public static function haeRaaka_aineet() {
     $query = DB::connection()->prepare('SELECT nimi FROM Raaka_aineet');
@@ -161,6 +247,11 @@ class Resepti extends BaseModel{
     $pgArray = self::to_pg_array($this->ohje);
     $query = DB::connection()->prepare('UPDATE Resepti SET nimi = :nimi, kategoria = :kategoria, kuvaus = :kuvaus, valm_aika = :valm_aika, annoksia = :annoksia, ohje = :ohje WHERE id = :id');
     $query->execute(array('nimi' => $this->nimi, 'kategoria' => $this->kategoria, 'kuvaus' => $this->kuvaus, 'valm_aika' => $this->valm_aika, 'annoksia' => $this->annoksia, 'id' => $id, 'ohje' => $pgArray));
+  }
+
+  public static function tallennaKuva($kuva, $id) {
+    $query = DB::connection()->prepare('UPDATE Resepti SET kuva = :kuva WHERE id = :id');
+    $query->execute(array('kuva' => $kuva, 'id' => $id));
   }
 
   /* Stack Overflow copypasta */

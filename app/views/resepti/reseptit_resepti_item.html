@@ -9,7 +9,20 @@
     {% if resepti.kayttajanimi and resepti.kayttajanimi != 'poistettu' %}
     <a href="#">{{resepti.kayttajanimi}}</a>
     {% endif %}
-    <a href="#"><i class="fa fa-star-o fa-2x room right" aria-hidden="true"></i></a>
+    {% if user_logged_in %}
+    <section id="suosikit{{resepti.id}}">
+    {% if resepti.id in suosikit %}
+    <a class="poistaSuosikki" id="{{resepti.id}}">
+    <i class="fa fa-star fa-2x room right" aria-hidden="true"></i></a>
+    {% else %}
+    <a class="lisaaSuosikki" id="{{resepti.id}}">
+    <i class="fa fa-star-o fa-2x room right" aria-hidden="true"></i></a>
+    {% endif %}
+    </section>
+    {% else %}
+    <a href="{{base_path}}/kayttajat/rekisteroidy/"><i class="fa fa-star-o fa-2x room right" aria-hidden="true"></i></a>
+    {% endif %}
+    {{suosikit[0]}}
     </div>
 
 </div>

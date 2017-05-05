@@ -123,7 +123,7 @@ i.room {
 }
 
 /* käyttäjä sivu */
-button.room {
+room {
   margin: 5px 15px 0 15px;
 }
 
@@ -132,7 +132,3 @@ td.hidden {
 }
 
 /* rekisteröityminen */
-
-span.left {
-  float: left;
-}

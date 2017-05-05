@@ -36,7 +36,7 @@ CREATE TABLE Ainekset(
   resepti_id INTEGER REFERENCES Resepti(id) ON DELETE CASCADE,
   raaka_aine_id INTEGER REFERENCES Raaka_aineet(id),
   raaka_aine_nimi varchar(50),
-  mittayksikko varchar(15) NOT NULL,
+  mittayksikko varchar(50) NOT NULL,
   maara decimal(8,3) NOT NULL
 );
 
@@ -47,4 +47,14 @@ CREATE TABLE Ravintoarvot(
   hiilarit decimal(11,7),
   rasva decimal(11,7),
   kuidut decimal(11,7)
+);
+
+CREATE TABLE yksikko_muunnokset(
+  lyhenne varchar(11) PRIMARY KEY,
+  kuvaus varchar(40)
+);
+
+CREATE TABLE yksikot(raaka_aine_id integer references raaka_aineet(id) on delete cascade,
+ lyhenne varchar(11),
+ kerroin numeric (7,3)
 );

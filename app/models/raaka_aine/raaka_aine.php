@@ -1,6 +1,6 @@
 <?php
 class Raaka_aine extends BaseModel{
-  public $id, $nimi;
+  public $id, $nimi, $energia, $rasva, $proteiini, $kuidut, $hiilarit, $maara;
 
   public function __construct($attributes){
     parent::__construct($attributes);
@@ -11,7 +11,6 @@ class Raaka_aine extends BaseModel{
     $query->execute(array('nimi' => $this->nimi));
     $row = $query->fetch();
     if($row) {
-//      $this->id = $row['id'];
       $query = DB::connection()->prepare('SELECT kuvaus FROM Yksikko_muunnokset AS ym, Yksikot AS y WHERE y.lyhenne = ym.lyhenne AND y.raaka_aine_id = :id');
       $query->execute(array('id' => $row['id']));
       $rows = $query->fetchAll();
@@ -19,6 +18,25 @@ class Raaka_aine extends BaseModel{
       return json_encode($rows);
     } else {
       return null;
+    }
+  }
+
+  public function haeMakrot() {
+    $query = DB::connection()->prepare('SELECT * FROM ravintoarvot WHERE raaka_aine_id = :id');
+    $query->execute(array('id' => $this->id));
+    $row = $query->fetch();
+    if ($row) {
+      $this->energia = $row['energia'] / 100;
+      $this->rasva = $row['rasva'] / 100;
+      $this->proteiini = $row['proteiini'] / 100;
+      $this->kuidut = $row['kuidut'] / 100;
+      $this->hiilarit = $row['hiilarit'] / 100;
+    } else {
+      $this->energia = 0;
+      $this->rasva = 0;
+      $this->proteiini = 0;
+      $this->kuidut = 0;
+      $this->hiilarit = 0;
     }
   }
 }

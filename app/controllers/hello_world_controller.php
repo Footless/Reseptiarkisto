@@ -16,8 +16,8 @@
     }
 
     public static function sandbox(){
-    $kayttajat = Resepti::showPersonal(1);
+    $suosikit = Resepti::haeSuosikit(1);
     // Kint-luokan dump-metodi tulostaa muuttujan arvon
-    Kint::dump($kayttajat);
+    Kint::dump($suosikit);
   }
   }
