@@ -103,7 +103,11 @@ class ReseptitController extends BaseController{
       ));
       $resepti_id = $resepti->lisaaResepti();
       if ($_FILES['kuva']['tmp_name']) {
-        self::lataaKuva($_FILES['kuva']['tmp_name']);
+        $file_raw = file_get_contents($_FILES['kuva']['tmp_name']);
+        //$kuva = pg_escape_bytea($file_raw);
+        $kuva = pg_escape_bytea($_FILES['kuva']['name']);
+        $resepti->tallennaKuva($kuva, $resepti_id);
+        //self::lataaKuva($_FILES['kuva']['tmp_name']);
       }
       $arrPituus = count($params['resepti_raaka_aineet']);
       $raaka_aineet = array();
@@ -192,36 +196,10 @@ class ReseptitController extends BaseController{
       $kuva = $row['kuva'];
 
       header("Content-type: image/jpeg");
-      echo pg_unescape_bytea($kuva);
-      //echo base64_decode($kuva);
-      //fpassthru($kuva);
+      //echo pg_unescape_bytea($row['kuva']);
+      fpassthru($row['kuva']);
     } else {
       echo "joku menee vituiksi";
-    }
-  }
-
-  private static function lataaKuva($kuva) {
-//    $tyyppi = exif_imagetype($kuva);
-//    if ($tyyppi == 1 || $tyyppi == 2 || $tyyppi == 3) {
-//      $kuva = file_get_contents($_FILES['kuva']['tmp_name']);
-//      $kuvaString = pg_escape_bytea($kuva);
-//      $resepti->tallennaKuva($kuvaString, $resepti_id);
-//    }
-    $target_dir = "assets/img/";
-    $target_file = $target_dir . basename($kuva);
-    $uploadOk = 1;
-    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-    if (file_exists($target_file)) {
-      $uploadOk = 0;
-    }
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-    && $imageFileType != "gif" ) {
-      $uploadOk = 0;
-    }
-    if ($uploadOk == 1) {
-      if (move_uploaded_file($kuva, $target_file)) {
-        echo "success";
-      }
     }
   }
 
@@ -235,7 +213,8 @@ class ReseptitController extends BaseController{
       'annoksia' => 'Annosten määrä',
       'ohjeet' => 'Valmistusohjeet'
     ));
-    $v->rule('numeric', array('valm_aika', 'annoksia'))->message('{field} saa sisältää ainostaan kirjaimia ja numeroita.');
+    $v->rule('regex', array('nimi', 'kuvaus'), "/^[a-zA-Z\s,.'-\pL]+$/u")->message('{field} saa sisältää ainoastaan kirjaimia.');
+    $v->rule('numeric', array('valm_aika', 'annoksia'))->message('{field} saa sisältää ainostaan numeroita.');
     if ($v->validate()) {
       return null;
     } else {

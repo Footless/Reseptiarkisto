@@ -32,7 +32,7 @@
         </div>
         <div class="col-sm-4">
           <h3>Kaikki reseptit</h3>
-          {% for resepti in reseptit %}
+          {% for resepti in reseptit|slice(0,20) %}
           {{ include('resepti/reseptit_resepti_item.html') }}
           {% endfor %}
         </div>

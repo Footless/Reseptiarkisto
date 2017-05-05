@@ -1,0 +1,15 @@
+insert into yksikko_muunnokset values ('G', 'gramma');
+insert into yksikko_muunnokset values ('G', 'gramma');
+insert into yksikko_muunnokset values ('SPLPORT', 'Annoksen koko, joka vastaa 1000kJ');
+insert into yksikko_muunnokset values ('SPLPORT', 'kappaletta annosta');
+insert into yksikko_muunnokset values ('PORTTBL', 'Elintarviketaulukossa käytetty annos');
+insert into yksikko_muunnokset values ('PORTL', 'iso annos');
+insert into yksikko_muunnokset values ('PORTM', 'keskikokoinen annos');
+insert into yksikko_muunnokset values ('PORTS', 'pieni annos');
+insert into yksikko_muunnokset values ('KPL_L', 'iso (kpl)');
+insert into yksikko_muunnokset values ('KPL_M', 'keskikokoinen (kpl)');
+insert into yksikko_muunnokset values ('KPL_S', 'pieni (kpl)');
+insert into yksikko_muunnokset values ('TL', 'teelusikka');
+insert into yksikko_muunnokset values ('RKL', 'ruokalusikka');
+insert into yksikko_muunnokset values ('L', 'litra');
+insert into yksikko_muunnokset values ('DL', 'desilitra');

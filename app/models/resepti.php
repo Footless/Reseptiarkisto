@@ -25,11 +25,12 @@ class Resepti extends BaseModel{
       ));
 
     }
+    shuffle($reseptit);
     return $reseptit;
   }
 
   public static function uusimmatReseptit() {
-    $query = DB::connection()->prepare('SELECT Resepti.id as id, nimi, kuvaus, kayttajanimi, lisatty FROM Resepti LEFT JOIN Kayttaja ON Kayttaja.id=Resepti.kayttaja_id ORDER BY lisatty DESC');
+    $query = DB::connection()->prepare('SELECT Resepti.id as id, nimi, kuvaus, kayttajanimi, lisatty FROM Resepti LEFT JOIN Kayttaja ON Kayttaja.id=Resepti.kayttaja_id ORDER BY lisatty DESC LIMIT 20');
     $query->execute();
     $rows = $query->fetchAll();
 

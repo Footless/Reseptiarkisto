@@ -54,7 +54,8 @@ CREATE TABLE yksikko_muunnokset(
   kuvaus varchar(40)
 );
 
-CREATE TABLE yksikot(raaka_aine_id integer references raaka_aineet(id) on delete cascade,
+CREATE TABLE yksikot(
+ raaka_aine_id INTEGER REFERENCES raaka_aineet(id) ON DELETE CASCADE,
  lyhenne varchar(11),
  kerroin numeric (7,3)
 );
